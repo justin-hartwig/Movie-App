@@ -6,73 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface ExampleComponent {
-        "exampleProp": string;
-        "exampleToUpperCase": () => Promise<void>;
-    }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface MoviePreview {
     }
 }
 declare global {
-    interface HTMLExampleComponentElement extends Components.ExampleComponent, HTMLStencilElement {
+    interface HTMLMoviePreviewElement extends Components.MoviePreview, HTMLStencilElement {
     }
-    var HTMLExampleComponentElement: {
-        prototype: HTMLExampleComponentElement;
-        new (): HTMLExampleComponentElement;
-    };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-    }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLMoviePreviewElement: {
+        prototype: HTMLMoviePreviewElement;
+        new (): HTMLMoviePreviewElement;
     };
     interface HTMLElementTagNameMap {
-        "example-component": HTMLExampleComponentElement;
-        "my-component": HTMLMyComponentElement;
+        "movie-preview": HTMLMoviePreviewElement;
     }
 }
 declare namespace LocalJSX {
-    interface ExampleComponent {
-        "exampleProp"?: string;
-        "onExampleEvent"?: (event: CustomEvent<string>) => void;
-    }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface MoviePreview {
     }
     interface IntrinsicElements {
-        "example-component": ExampleComponent;
-        "my-component": MyComponent;
+        "movie-preview": MoviePreview;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "example-component": LocalJSX.ExampleComponent & JSXBase.HTMLAttributes<HTMLExampleComponentElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
         }
     }
 }
