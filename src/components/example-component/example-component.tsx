@@ -2,7 +2,7 @@ import { Component, Host, h, Prop, Event, EventEmitter, Listen, Method } from '@
 
 @Component({
   tag: 'example-component',
-  styleUrl: 'example-component.css',
+  styleUrl: 'example-component.scss',
   shadow: true,
 })
 export class ExampleComponent {
@@ -38,6 +38,10 @@ export class ExampleComponent {
         <slot></slot>
         <br />
         <button onClick={(ev)=>this.exampleHandler(ev)}>exampleEvent abgeben</button>
+
+        <div class="test">
+          <div class="test1"></div>
+        </div>
       </Host>
     );
   }

@@ -1,0 +1,17 @@
+@import "../../global/variables.scss";
+
+.test {
+    background-color: $bg-color;
+    width: 4rem;
+    height: 4rem;
+
+    &:hover {
+        background-color: $primary;
+    }
+
+    .test1 {
+        background-color: $primary;
+        width: 1rem;
+        height: 1rem;
+    }
+}
