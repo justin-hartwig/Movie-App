@@ -10,8 +10,19 @@ export class MoviePreview {
   render() {
     return (
       <Host>
-        <div class="d-flex">Test</div>
-        <button type="button" class="btn btn-success">Success</button>
+        <div class="container">
+
+          <div class="feld">
+            Column
+          </div>
+          <div class="feld">
+            Column
+          </div>
+          <div class="feld">
+            Column
+
+          </div>
+        </div>
       </Host>
     );
   }
