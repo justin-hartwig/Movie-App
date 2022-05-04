@@ -6,10 +6,19 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface MovieHeader {
+        "headerBGImage": string;
+    }
     interface MoviePreview {
     }
 }
 declare global {
+    interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
+    }
+    var HTMLMovieHeaderElement: {
+        prototype: HTMLMovieHeaderElement;
+        new (): HTMLMovieHeaderElement;
+    };
     interface HTMLMoviePreviewElement extends Components.MoviePreview, HTMLStencilElement {
     }
     var HTMLMoviePreviewElement: {
@@ -17,13 +26,18 @@ declare global {
         new (): HTMLMoviePreviewElement;
     };
     interface HTMLElementTagNameMap {
+        "movie-header": HTMLMovieHeaderElement;
         "movie-preview": HTMLMoviePreviewElement;
     }
 }
 declare namespace LocalJSX {
+    interface MovieHeader {
+        "headerBGImage"?: string;
+    }
     interface MoviePreview {
     }
     interface IntrinsicElements {
+        "movie-header": MovieHeader;
         "movie-preview": MoviePreview;
     }
 }
@@ -31,6 +45,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
             "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
         }
     }

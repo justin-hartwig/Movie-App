@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+#header{
+    background-image : url('/dist/stencil-starter-on/assets/images/headerImage.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 40vh;
+    border-radius: 30px;
+
+}
+
+#titleApp{
+    font-family: 'Raleway', sans-serif;
+    font-size: 5rem;
+    color: #80F2E7;
+    font-weight: 700;
+    margin-left: 5%;
+    float: left;
+
+}
+
+#searchMovies{
+    float: right;
+    border-radius: 30px;
+    border: none;
+    margin-top: 3%;
+    margin-right: 5%;
+    padding: 1% 2%;
+
+}
+
+#menu{
+    float: right;
+    margin-top: 2%;
+    margin-right: 25%;
+
+}
+
+@media only screen and (max-width: 1500px) {   
+    
+    #titleApp{
+        font-size: 3rem;
+
+    }
+
+}
+
+@media only screen and (max-width: 800px) {   
+    
+    #titleApp{
+        font-size: 1rem;
+        padding-top: 5%;
+        margin-left: 1%;
+
+    }
+
+}
+
