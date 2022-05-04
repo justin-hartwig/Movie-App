@@ -3,15 +3,15 @@ import { Component, Host, h } from '@stencil/core';
 @Component({
   tag: 'movie-preview',
   styleUrl: 'movie-preview.scss',
-  shadow: true,
+  shadow: false,
 })
 export class MoviePreview {
 
   render() {
     return (
       <Host>
-        <slot></slot>
-        <div>Test</div>
+        <div class="d-flex">Test</div>
+        <button type="button" class="btn btn-success">Success</button>
       </Host>
     );
   }
