@@ -11,6 +11,8 @@ export namespace Components {
         "apiURL": string;
         "baseURL": string;
         "imageURL": string;
+    interface MovieHeader {
+        "headerBGImage": string;
     }
     interface MoviePreview {
         "imageUrl": string;
@@ -23,6 +25,11 @@ declare global {
     var HTMLMovieOutputElement: {
         prototype: HTMLMovieOutputElement;
         new (): HTMLMovieOutputElement;
+    interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
+    }
+    var HTMLMovieHeaderElement: {
+        prototype: HTMLMovieHeaderElement;
+        new (): HTMLMovieHeaderElement;
     };
     interface HTMLMoviePreviewElement extends Components.MoviePreview, HTMLStencilElement {
     }
@@ -32,6 +39,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "movie-output": HTMLMovieOutputElement;
+        "movie-header": HTMLMovieHeaderElement;
         "movie-preview": HTMLMoviePreviewElement;
     }
 }
@@ -41,6 +49,8 @@ declare namespace LocalJSX {
         "apiURL"?: string;
         "baseURL"?: string;
         "imageURL"?: string;
+    interface MovieHeader {
+        "headerBGImage"?: string;
     }
     interface MoviePreview {
         "imageUrl"?: string;
@@ -48,6 +58,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "movie-output": MovieOutput;
+        "movie-header": MovieHeader;
         "movie-preview": MoviePreview;
     }
 }
@@ -56,6 +67,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;
+            "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
             "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
         }
     }
