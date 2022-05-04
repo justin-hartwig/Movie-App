@@ -29,7 +29,7 @@ export class TmdbCall {
     return (
       <Host>
           {this.movies?.map((movie) =>
-            <movie-preview class="col-12 col-sm-6 col-lg-3 col-xl-2" movie-title={movie.title} image-url={this.imageURL + movie.poster_path}></movie-preview>
+            <movie-preview class="col-12 col-sm-6 col-lg-3 col-xl-2 mt-5" movie-title={movie.title} image-url={this.imageURL + movie.poster_path}></movie-preview>
           )}
       </Host>
     );
