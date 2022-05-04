@@ -1,6 +1,13 @@
-.feld {
+.movie-card {
     background-color: hsl(183, 100%, 15%);
     justify-content: center;
-    height: 12rem;
+    height: 16rem;
     border-radius: 0.5rem;
+    background-image: url(--bg-img);
+    background-position: center;
+    background-size: cover;
+}
+
+.movie-title {
+    text-align: center;
 }
