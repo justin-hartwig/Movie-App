@@ -11,53 +11,53 @@ export class MoviePreview {
     return (
       <Host>
         <div class="container">
-          <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-            <div class="col">
+          <div class="row g-2 g-lg-3">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col col-4 col-lg-3">
               <div class="p-3">
                 <div class="feld"></div>
               </div>
