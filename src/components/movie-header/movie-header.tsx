@@ -15,27 +15,35 @@ export class MovieHeader {
   render() {
     return (
       <Host>
-
-        <div class="container col-l-10 col-m-10 col-s-10 col-xs-10 col-10 my-5" id="header">
-          <p id="titleApp">
-            The
-            <br>
-            </br>
-            Movie
-            <br></br>
-            App</p>
-            
-            <input class="col-4" type="text" id="searchMovies" name="searchMovies" placeholder="Suche nach Filmen"></input>
-            <p></p>
-            <div id="menu">
-            <ul>
-              <li>Neuste Filme</li>
-              <li>Meine Watchlist</li>
-              <li>Filme A-Z</li>
-            </ul>
+        <div class="container p-5 mt-5" id="header">
+          <div class="row">
+            <div class="col-12 col-lg-4 title-wrapper">
+              <h1>
+                The
+                <br></br>
+                Movie
+                <br></br>
+                App
+              </h1>
+            </div>
+            <div class="col-12 col-lg-4">
+            </div>
+            <div class="col-12 col-lg-4 menu-wrapper">
+              <input type="text" id="search-movies" name="search-movies" placeholder="Suche nach Filmen"></input>
+              <ul id="menu">
+                <li>
+                  <a>Neuste Filme</a>
+                </li>
+                <li>
+                  <a>Meine Watchlist</a>
+                </li>
+                <li>
+                  <a>Filme A-Z</a>
+                </li>
+              </ul>  
+            </div>
           </div>
         </div>
-
       </Host>
     );
   }
