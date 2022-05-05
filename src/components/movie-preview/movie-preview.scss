@@ -1,8 +1,21 @@
+@import "../../global/variables.scss";
+@import "../../global/typographie.scss";
+
+#movie-preview-wrapper{
+    transition: 0.1s ease-in;
+}
+
+#movie-preview-wrapper:hover{
+    scale: 1.1;
+    transition: 0.1s ease-in;
+}
+
 .movie-card {
-    background-color: hsl(183, 100%, 15%);
+    background-color: $bg-color;
     justify-content: center;
     height: 16rem;
-    border-radius: 0.5rem;
+    border-radius: 30px;
+    margin: 0 1rem;
     background-image: url(--bg-img);
     background-position: center;
     background-size: cover;
@@ -10,4 +23,10 @@
 
 .movie-title {
     text-align: center;
+    margin-top: 1rem;
+    font-family: $mainFont;
+    font-size: 1rem;
+    color: $secondary;
 }
+
+

@@ -12,8 +12,10 @@ export class MoviePreview {
   render() {
     return (
       <Host>
+        <div id="movie-preview-wrapper">
           <div class="movie-card p-3" style={{'background-image' : `url(${this.imageUrl})`}}></div>
-          <div class="movie-title">{this.movieTitle}</div>   
+          <div class="movie-title">{this.movieTitle}</div>
+          </div>   
       </Host>
     );
   }
