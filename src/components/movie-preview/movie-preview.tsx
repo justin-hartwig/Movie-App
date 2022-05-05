@@ -15,9 +15,9 @@ export class MoviePreview {
         <div class="movie-preview-wrapper">
           <div class="movie-card" style={{'background-image' : `url(${this.imageUrl})`}}>
               <div class="movie-card-overlay d-flex">
-                <button class="button-icon button-detail"></button>
-                <button class="button-icon button-add-watchlist"></button>
-                <button class="button-icon button-add-favorits"></button>
+                <movie-icon icon-name="watchlist-add"></movie-icon>
+                <movie-icon icon-name="favourite-add"></movie-icon>
+                <movie-icon icon-name="detail"></movie-icon>
               </div>
             </div>
           <div class="movie-title">{this.movieTitle}</div>   
