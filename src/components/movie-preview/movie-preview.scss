@@ -1,9 +1,11 @@
-@import "../../global/variables.scss";
+@import "../../global/global.scss";
 
 .movie-card {
+    background-color: $bg-color;
     justify-content: center;
     height: 16rem;
-    border-radius: 0.5rem;
+    border-radius: 30px;
+    margin: 0 1rem;
     background-image: url(--bg-img);
     background-position: center;
     background-size: cover;
@@ -23,6 +25,7 @@
     .show-overlay {
         .movie-card-overlay {
             top: 0;
+            scale: 1.1;
             background-color: $poster-overlay-shadow;
         }
     }
@@ -30,4 +33,10 @@
 
 .movie-title {
     text-align: center;
+    margin-top: 1rem;
+    font-family: $mainFont;
+    font-size: 1rem;
+    color: $secondary;
 }
+
+
