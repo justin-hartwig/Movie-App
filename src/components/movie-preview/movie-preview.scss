@@ -1,32 +1,39 @@
 @import "../../global/global.scss";
 
-.movie-card {
-    background-color: $bg-color;
-    justify-content: center;
-    height: 16rem;
-    border-radius: 30px;
-    margin: 0 1rem;
-    background-image: url(--bg-img);
-    background-position: center;
-    background-size: cover;
-    overflow: hidden;
-    position: relative;
+.movie-preview-wrapper {
+    transition: all ease-in-out 0.1s;
 
-    .movie-card-overlay {
-        position: absolute;
-        top: 100%;
-        height: 100%;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0);
-        transition: all ease-out 0.3s;
+    .movie-card {
+        background-color: $bg-color;
+        justify-content: center;
+        height: 16rem;
+        border-radius: 30px;
+        margin: 0 1rem;
+        background-image: url(--bg-img);
+        background-position: center;
+        background-size: cover;
+        overflow: hidden;
+        position: relative;
+    
+        .movie-card-overlay {
+            position: absolute;
+            top: 100%;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            transition: all ease-out 0.3s;
+        }
     }
 
-    &:hover,
-    .show-overlay {
-        .movie-card-overlay {
-            top: 0;
-            scale: 1.1;
-            background-color: $poster-overlay-shadow;
+    &:hover {
+        transform: scale(1.1);
+
+        .movie-card,
+        .show-overlay {
+            .movie-card-overlay {
+                top: 0;
+                background-color: $poster-overlay-shadow;
+            }
         }
     }
 }
