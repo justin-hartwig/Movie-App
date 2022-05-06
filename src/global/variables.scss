@@ -4,5 +4,9 @@ $secondary: #80F2E7;
 $bg-color: #384D59;
 $poster-overlay-shadow: rgba(0, 0, 0 , 0.7);
 
+//filter
+$bg-color-filter: invert(26%) sepia(26%) saturate(535%) hue-rotate(158deg) brightness(95%) contrast(88%);
+$white-filter: invert(100%) sepia(1%) saturate(7491%) hue-rotate(356deg) brightness(105%) contrast(101%);
+
 //fonts
 $mainFont : 'Raleway', sans-serif;

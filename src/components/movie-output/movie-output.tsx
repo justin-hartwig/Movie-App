@@ -11,12 +11,12 @@ export class TmdbCall {
   
   @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey;
   
-  @State() movies: any[];
+  @State() newMovies: any[];
 
   //Get movies and save them in movies array
   getMovies(url:string):void {
     fetch(url).then(res => res.json()).then(data => {
-      this.movies = data.results;
+      this.newMovies = data.results;
     });
   }
 
@@ -28,7 +28,7 @@ export class TmdbCall {
   render() {
     return (
       <Host>
-          {this.movies?.map((movie) =>
+          {this.newMovies?.map((movie) =>
             <movie-preview class="col-12 col-sm-6 col-lg-3 col-xl-2 mt-5" movie-title={movie.title} image-url={this.imageURL + movie.poster_path}></movie-preview>
           )}
       </Host>
