@@ -14,7 +14,7 @@ export class MoviePreview {
       <Host>
         <div class="movie-preview-wrapper">
           <div class="movie-card" style={{'background-image' : `url(${this.imageUrl})`}}>
-              <div class="movie-card-overlay d-flex">
+              <div class="movie-card-overlay d-flex flex-column align-items-center justify-content-center">
                 <movie-icon icon-name="watchlist-add"></movie-icon>
                 <movie-icon icon-name="favourite-add"></movie-icon>
                 <movie-icon icon-name="detail"></movie-icon>
