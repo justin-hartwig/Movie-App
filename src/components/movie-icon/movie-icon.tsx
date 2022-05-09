@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, EventEmitter, h, Prop, Event } from '@stencil/core';
 
 export interface iconCategorie {
   name : string;
@@ -20,12 +20,18 @@ export class MovieIcon {
                             {name: "detail", fileName:"arrowdowncircle.svg", altAttribute: "Details"}];
   @Prop() iconName : string;
 
+  @Event({bubbles:true, composed:true}) addToWatchlist: EventEmitter<MovieIcon>;
+
+  onWatchlistButtonClicked(){
+    this.addToWatchlist.emit(this);
+  }
+
   render() {
     return(
       this.iconCategories.map((icon, index) => {
         if (this.iconName === icon.name) {
           return (
-            <button key={index} class="btn button-icon">
+            <button onClick={this.onWatchlistButtonClicked.bind(this)} key={index} class="btn button-icon">
               <img src={this.baseIconPath + icon.fileName} alt={icon.altAttribute}></img>
             </button>
           )
