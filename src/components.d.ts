@@ -20,11 +20,12 @@ export namespace Components {
         "apiURL": string;
         "baseURL": string;
         "imageURL": string;
+        "showNewMovielist": () => Promise<void>;
+        "showWatchlist": () => Promise<void>;
     }
     interface MoviePreview {
         "imageUrl": string;
         "movieTitle": string;
-        "onWatchlist": boolean;
     }
 }
 declare global {
@@ -79,7 +80,6 @@ declare namespace LocalJSX {
     interface MoviePreview {
         "imageUrl"?: string;
         "movieTitle"?: string;
-        "onWatchlist"?: boolean;
     }
     interface IntrinsicElements {
         "movie-header": MovieHeader;

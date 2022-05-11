@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Listen } from '@stencil/core';
+import { Component, h, Prop, State, Listen, Method } from '@stencil/core';
 import { MovieIcon } from '../movie-icon/movie-icon';
 
 @Component({
@@ -11,9 +11,11 @@ export class MovieOutput {
   @Prop() imageURL: string = 'https://image.tmdb.org/t/p/w500';
   @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey;
 
-  @State() currentDisplayedMovies: any[] = [];
+  @State() currentDisplayedMovies: any[];
+  
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
+  watchlisDisplayed: boolean = false;
 
   @Listen('addToWatchlist')
   addToWatchlistHandler(event: CustomEvent<MovieIcon>){
@@ -22,16 +24,17 @@ export class MovieOutput {
     if(!this.checkIfMovieInList(movieToAdd, this.watchlistMovies)){
       this.watchlistMovies.push(movieToAdd);
     }
-    //productive remove!!!
-    this.showWatchlist();
   }
 
   @Listen('removeFromWatchlist')
   removeFromWatchlist(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToRemove : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
-    if(!this.checkIfMovieInList(movieToRemove, this.watchlistMovies)){
-      this.watchlistMovies.filter(movie => movie !== movieToRemove);
+    if(this.checkIfMovieInList(movieToRemove, this.watchlistMovies)){
+      this.watchlistMovies = this.watchlistMovies.filter(movie => movie !== movieToRemove);
+    }
+    if(this.watchlisDisplayed){
+      this.showWatchlist();
     }
   }
 
@@ -58,19 +61,22 @@ export class MovieOutput {
     let result : boolean = false;
     list.filter(entry => {
       if(entry.title === movie.title) {
-        console.log("movie in list")
         result = true;
       }
     })
     return result;
   }
 
-  showWatchlist(){
-    this.currentDisplayedMovies = this.watchlistMovies.slice(0);
+  @Method()
+  async showWatchlist(){
+    this.watchlisDisplayed = true;
+    this.currentDisplayedMovies = this.watchlistMovies;
   }
 
-  showNewMovielist(){
-    this.currentDisplayedMovies = this.newMovies.slice(0);
+  @Method()
+  async showNewMovielist(){
+    this.watchlisDisplayed = false;
+    this.currentDisplayedMovies = this.newMovies;
   }
 
   //InitalLoad
@@ -89,7 +95,7 @@ export class MovieOutput {
             )
           })
         :
-          <p>Auf dieser Liste befinden sich momentan keine Filme. Wechsel zu einer anderen Liste um Filme zu dieser Liste hinzufügen.</p>
+          <p id="no-movies-message">Auf dieser Liste befinden sich momentan keine Filme. Wechsel zu einer anderen Liste um Filme zu dieser Liste hinzufügen.</p>
     )
   }
 }
