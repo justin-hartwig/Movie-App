@@ -1,0 +1,11 @@
+@import "../../global/global.scss";
+
+#headerMovieDetail{
+    background-image : url('/assets/images/headerImageMovieDetail.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 40vh;
+    border-radius: 30px;
+
+}
