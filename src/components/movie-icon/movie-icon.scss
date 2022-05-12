@@ -1,0 +1,23 @@
+@import "../../global/global.scss";
+
+.btn.button-icon {
+    background-color: $primary;
+    border-radius: 5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+    img {
+        max-width: 2.5rem;
+        filter: $bg-color-filter;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $bg-color;
+
+        img {
+            filter: $white-filter;
+        }
+    }
+}

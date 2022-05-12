@@ -5,17 +5,25 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
     interface MovieDetail {
     }
     interface MovieHeader {
         "headerBGImage": string;
     }
+    interface MovieIcon {
+        "baseIconPath": string;
+        "iconCategories": iconCategorie[];
+        "iconName": string;
+    }
     interface MovieOutput {
         "apiKey": string;
         "apiURL": string;
         "baseURL": string;
         "imageURL": string;
+        "showNewMovielist": () => Promise<void>;
+        "showWatchlist": () => Promise<void>;
     }
     interface MoviePreview {
         "imageUrl": string;
@@ -35,6 +43,12 @@ declare global {
         prototype: HTMLMovieHeaderElement;
         new (): HTMLMovieHeaderElement;
     };
+    interface HTMLMovieIconElement extends Components.MovieIcon, HTMLStencilElement {
+    }
+    var HTMLMovieIconElement: {
+        prototype: HTMLMovieIconElement;
+        new (): HTMLMovieIconElement;
+    };
     interface HTMLMovieOutputElement extends Components.MovieOutput, HTMLStencilElement {
     }
     var HTMLMovieOutputElement: {
@@ -50,6 +64,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "movie-detail": HTMLMovieDetailElement;
         "movie-header": HTMLMovieHeaderElement;
+        "movie-icon": HTMLMovieIconElement;
         "movie-output": HTMLMovieOutputElement;
         "movie-preview": HTMLMoviePreviewElement;
     }
@@ -59,6 +74,13 @@ declare namespace LocalJSX {
     }
     interface MovieHeader {
         "headerBGImage"?: string;
+    }
+    interface MovieIcon {
+        "baseIconPath"?: string;
+        "iconCategories"?: iconCategorie[];
+        "iconName"?: string;
+        "onAddToWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
+        "onRemoveFromWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
     }
     interface MovieOutput {
         "apiKey"?: string;
@@ -73,6 +95,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "movie-detail": MovieDetail;
         "movie-header": MovieHeader;
+        "movie-icon": MovieIcon;
         "movie-output": MovieOutput;
         "movie-preview": MoviePreview;
     }
@@ -83,6 +106,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "movie-detail": LocalJSX.MovieDetail & JSXBase.HTMLAttributes<HTMLMovieDetailElement>;
             "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
+            "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;
             "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
         }
