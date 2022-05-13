@@ -17,14 +17,18 @@ export class MovieIcon {
   @Prop() baseIconPath : string = "/assets/images/icons/"
   @Prop() iconCategories : iconCategorie[] = [{name: "watchlist-add", fileName:"watchlist.svg", altAttribute: "Zur Watchlist hinzufügen", onClickFunction: this.onWatchlistAddButtonClicked.bind(this)}, 
                             {name: "watchlist-remove", fileName:"removefromwatchlist.svg", altAttribute: "Von der Watchlist entfernen", onClickFunction: this.onWatchlistRemoveButtonClicked.bind(this)},
-                            {name: "favourite-add", fileName:"favourite.svg", altAttribute: "Zu den Favoriten hinzufügen", onClickFunction: {}},
+                            {name: "favorit-add", fileName:"favourite.svg", altAttribute: "Zu den Favoriten hinzufügen", onClickFunction: this.onFavoritAddButtonClicked.bind(this)},
+                            {name: "favorit-remove", fileName:"facebook.svg", altAttribute: "Von den Favoriten entfernen", onClickFunction: this.onFavoritRemoveButtonClicked.bind(this)},
                             {name: "detail", fileName:"arrowdowncircle.svg", altAttribute: "Details", onClickFunction: {}}];
   @Prop() iconName : string;
 
   @Event({bubbles:true, composed:true}) addToWatchlist: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) removeFromWatchlist: EventEmitter<MovieIcon>;
+  @Event({bubbles:true, composed:true}) addToFavorit: EventEmitter<MovieIcon>;
+  @Event({bubbles:true, composed:true}) removeFromFavorit: EventEmitter<MovieIcon>;
 
   @State() onWatchlist: boolean = false;
+  @State() onFavorit: boolean = false;
 
   onWatchlistAddButtonClicked(){
     this.onWatchlist = true;
@@ -34,6 +38,16 @@ export class MovieIcon {
   onWatchlistRemoveButtonClicked(){
     this.onWatchlist = false;
     this.removeFromWatchlist.emit(this);
+  }
+
+  onFavoritAddButtonClicked(){
+    this.onFavorit = true;
+    this.addToFavorit.emit(this);
+  }
+
+  onFavoritRemoveButtonClicked(){
+    this.onFavorit = false;
+    this.removeFromFavorit.emit(this);
   }
 
   iconCategorieByName(name : string) : iconCategorie {
@@ -61,7 +75,23 @@ export class MovieIcon {
           </button>
         )
       }
-    } else {
+    } 
+    else if(this.iconName === "favorit") {
+      if(this.onFavorit){
+        return(
+          <button onClick={this.iconCategorieByName("favorit-remove").onClickFunction} class="btn button-icon">
+            <img src={this.baseIconPath + this.iconCategorieByName("favorit-remove").fileName} alt={this.iconCategorieByName("favorit-remove").altAttribute}></img>
+          </button>
+        )
+      } else {
+        return(
+          <button onClick={this.iconCategorieByName("favorit-add").onClickFunction} class="btn button-icon">
+            <img src={this.baseIconPath + this.iconCategorieByName("favorit-add").fileName} alt={this.iconCategorieByName("favorit-add").altAttribute}></img>
+          </button>
+        )
+      }
+    }
+    else {
       return (
         this.iconCategories.map((icon, index) => {
           if (icon.name === this.iconName) {

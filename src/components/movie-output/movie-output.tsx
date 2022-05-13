@@ -15,7 +15,9 @@ export class MovieOutput {
   
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
+  favoritMovies: any[] = [];
   watchlisDisplayed: boolean = false;
+  favoritDisplayed: boolean = false;
 
   @Listen('addToWatchlist')
   addToWatchlistHandler(event: CustomEvent<MovieIcon>){
@@ -27,7 +29,7 @@ export class MovieOutput {
   }
 
   @Listen('removeFromWatchlist')
-  removeFromWatchlist(event: CustomEvent<MovieIcon>){
+  removeFromWatchlistHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToRemove : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
     if(this.checkIfMovieInList(movieToRemove, this.watchlistMovies)){
@@ -35,6 +37,27 @@ export class MovieOutput {
     }
     if(this.watchlisDisplayed){
       this.showWatchlist();
+    }
+  }
+
+  @Listen('addToFavorit')
+  addToFavoritestHandler(event: CustomEvent<MovieIcon>){
+    const targetElement : HTMLElement = event.target as HTMLElement;
+    const movieToAdd : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
+    if(!this.checkIfMovieInList(movieToAdd, this.favoritMovies)){
+      this.favoritMovies.push(movieToAdd);
+    }
+  }
+
+  @Listen('removeFromFavorit')
+  removeFromFavoritesHandler(event: CustomEvent<MovieIcon>){
+    const targetElement : HTMLElement = event.target as HTMLElement;
+    const movieToRemove : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
+    if(this.checkIfMovieInList(movieToRemove, this.favoritMovies)){
+      this.favoritMovies = this.favoritMovies.filter(movie => movie !== movieToRemove);
+    }
+    if(this.favoritDisplayed){
+      this.showFavorit();
     }
   }
 
@@ -70,14 +93,24 @@ export class MovieOutput {
   @Method()
   async showWatchlist(){
     this.watchlisDisplayed = true;
+    this.favoritDisplayed = false;
     this.currentDisplayedMovies = this.watchlistMovies;
   }
 
   @Method()
   async showNewMovielist(){
     this.watchlisDisplayed = false;
+    this.favoritDisplayed = false;
     this.currentDisplayedMovies = this.newMovies;
   }
+
+  @Method()
+  async showFavorit(){
+    this.watchlisDisplayed = false;
+    this.favoritDisplayed = true;
+    this.currentDisplayedMovies = this.favoritMovies;
+  }
+
 
   //InitalLoad
   async componentWillLoad(){

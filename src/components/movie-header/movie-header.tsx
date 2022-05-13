@@ -22,6 +22,12 @@ export class MovieHeader {
       await movieOutput.showWatchlist();
   }
 
+  async onFavoritesClicked(){
+    await customElements.whenDefined('movie-output');
+      const movieOutput = document.querySelector('movie-output');
+      await movieOutput.showFavorit();
+  }
+
   render() {
     return (
       <Host>
@@ -48,7 +54,7 @@ export class MovieHeader {
                   <a onClick={this.onWatchlistClicked.bind(this)}>Meine Watchlist</a>
                 </li>
                 <li>
-                  <a>Filme A-Z</a>
+                  <a onClick={this.onFavoritesClicked.bind(this)}>Favoriten</a>
                 </li>
               </ul>  
             </div>

@@ -26,6 +26,7 @@ export namespace Components {
         "apiURL": string;
         "baseURL": string;
         "imagePosterUrl": string;
+        "showFavorit": () => Promise<void>;
         "showNewMovielist": () => Promise<void>;
         "showWatchlist": () => Promise<void>;
     }
@@ -87,7 +88,9 @@ declare namespace LocalJSX {
         "baseIconPath"?: string;
         "iconCategories"?: iconCategorie[];
         "iconName"?: string;
+        "onAddToFavorit"?: (event: CustomEvent<MovieIcon>) => void;
         "onAddToWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
+        "onRemoveFromFavorit"?: (event: CustomEvent<MovieIcon>) => void;
         "onRemoveFromWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
     }
     interface MovieOutput {
