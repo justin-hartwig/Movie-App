@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
+    interface MovieDetail {
+    }
     interface MovieHeader {
         "headerBGImage": string;
     }
@@ -29,6 +31,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLMovieDetailElement extends Components.MovieDetail, HTMLStencilElement {
+    }
+    var HTMLMovieDetailElement: {
+        prototype: HTMLMovieDetailElement;
+        new (): HTMLMovieDetailElement;
+    };
     interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
     }
     var HTMLMovieHeaderElement: {
@@ -54,6 +62,7 @@ declare global {
         new (): HTMLMoviePreviewElement;
     };
     interface HTMLElementTagNameMap {
+        "movie-detail": HTMLMovieDetailElement;
         "movie-header": HTMLMovieHeaderElement;
         "movie-icon": HTMLMovieIconElement;
         "movie-output": HTMLMovieOutputElement;
@@ -61,6 +70,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface MovieDetail {
+    }
     interface MovieHeader {
         "headerBGImage"?: string;
     }
@@ -82,6 +93,7 @@ declare namespace LocalJSX {
         "movieTitle"?: string;
     }
     interface IntrinsicElements {
+        "movie-detail": MovieDetail;
         "movie-header": MovieHeader;
         "movie-icon": MovieIcon;
         "movie-output": MovieOutput;
@@ -92,6 +104,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "movie-detail": LocalJSX.MovieDetail & JSXBase.HTMLAttributes<HTMLMovieDetailElement>;
             "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
             "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;

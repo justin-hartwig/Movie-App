@@ -1,0 +1,94 @@
+@import "../../global/global.scss";
+
+.containerMovieDetail {
+    font-family: $mainFont;
+    color: $secondary;
+}
+
+#movieTitle {
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+.headerMovieDetail {
+    background-image: url('/assets/images/headerImageMovieDetail.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 40vh;
+    border-radius: 30px;
+}
+
+.container2-MovieDetails {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.imageTrailer {
+    width: 20vw;
+    height: auto;
+    border-radius: 30px;
+}
+
+.infoTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.lengthFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.genreFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.mainActorsFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.directorFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.descriptionMovie {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.actorsList{
+    text-align: center;
+}
+
+.imageActor{
+    width: 10vw;
+    height: auto;
+    border-radius: 30px;
+}
+
+.nameActor{
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.similarMovies{
+    text-align: center;
+}
+
+.imageSimilarMovie{
+    width: 10vw;
+    height: auto;
+    border-radius: 30px;
+}
+
+.titleSimilarMovie{
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+}

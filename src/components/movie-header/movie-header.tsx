@@ -5,7 +5,6 @@ import { Component, Host, h, Prop } from '@stencil/core';
   tag: 'movie-header',
   styleUrl: 'movie-header.scss',
   shadow: false,
-  assetsDirs: ['assets'],
 })
 
 export class MovieHeader {
