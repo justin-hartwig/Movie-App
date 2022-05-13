@@ -7,13 +7,13 @@ import { Component, Host, h, Prop } from '@stencil/core';
 })
 export class MoviePreview {
   @Prop() movieTitle: string;
-  @Prop() imageUrl: string;
+  @Prop() imagePosterUrl: string;
 
   render() {
     return (
       <Host>
         <div class="movie-preview-wrapper">
-          <div class="movie-card" style={{'background-image' : `url(${this.imageUrl})`}}>
+          <div class="movie-card" style={{'background-image' : `url(${this.imagePosterUrl})`}}>
               <div class="movie-card-overlay d-flex flex-column align-items-center justify-content-center">
                 <movie-icon icon-name="detail"></movie-icon>
                 <movie-icon icon-name="watchlist"></movie-icon>

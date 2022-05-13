@@ -8,7 +8,7 @@ import { MovieIcon } from '../movie-icon/movie-icon';
 export class MovieOutput {
   @Prop() apiKey: string = 'api_key=e6ddd5d3d3a06af375cb7f8401967566';
   @Prop() baseURL: string = 'https://api.themoviedb.org/3';
-  @Prop() imageURL: string = 'https://image.tmdb.org/t/p/w500';
+  @Prop() imagePosterUrl: string = 'https://image.tmdb.org/t/p/w500';
   @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey;
 
   @State() currentDisplayedMovies: any[];
@@ -86,12 +86,13 @@ export class MovieOutput {
   }
 
   render() {
+    console.log(this.newMovies)
     return(
       this.currentDisplayedMovies.length > 0
         ? 
           this.currentDisplayedMovies?.map((movie) => {
             return(
-              <movie-preview class="col-12 col-sm-6 col-lg-3 col-xl-2 mt-5" movie-title={movie.title} image-url={this.imageURL + movie.poster_path}> </movie-preview>
+              <movie-preview class="col-12 col-sm-6 col-lg-3 col-xl-2 mt-5" movie-title={movie.title} image-poster-url={this.imagePosterUrl + movie.poster_path}> </movie-preview>
             )
           })
         :

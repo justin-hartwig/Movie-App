@@ -8,6 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
     interface MovieDetail {
+        "imagePosterUrl": string;
+        "movieDescription": string;
+        "movieLength": number;
+        "movieTitle": string;
     }
     interface MovieHeader {
         "headerBGImage": string;
@@ -21,12 +25,12 @@ export namespace Components {
         "apiKey": string;
         "apiURL": string;
         "baseURL": string;
-        "imageURL": string;
+        "imagePosterUrl": string;
         "showNewMovielist": () => Promise<void>;
         "showWatchlist": () => Promise<void>;
     }
     interface MoviePreview {
-        "imageUrl": string;
+        "imagePosterUrl": string;
         "movieTitle": string;
     }
 }
@@ -71,6 +75,10 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MovieDetail {
+        "imagePosterUrl"?: string;
+        "movieDescription"?: string;
+        "movieLength"?: number;
+        "movieTitle"?: string;
     }
     interface MovieHeader {
         "headerBGImage"?: string;
@@ -86,10 +94,10 @@ declare namespace LocalJSX {
         "apiKey"?: string;
         "apiURL"?: string;
         "baseURL"?: string;
-        "imageURL"?: string;
+        "imagePosterUrl"?: string;
     }
     interface MoviePreview {
-        "imageUrl"?: string;
+        "imagePosterUrl"?: string;
         "movieTitle"?: string;
     }
     interface IntrinsicElements {

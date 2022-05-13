@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'movie-detail',
@@ -7,6 +7,10 @@ import { Component, Host, h } from '@stencil/core';
 })
 
 export class MovieDetail {
+  @Prop() movieTitle: string;
+  @Prop() movieDescription: string;
+  @Prop() movieLength: number;
+  @Prop() imagePosterUrl: string;
 
   render() {
     return (
