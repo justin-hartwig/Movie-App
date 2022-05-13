@@ -10,14 +10,16 @@ export class MovieDetail {
   @Prop() movieTitle: string;
   @Prop() movieDescription: string;
   @Prop() movieLength: number;
-  @Prop() imagePosterUrl: string;
+  @Prop() imageBackdropUrl: string;
 
   render() {
     return (
       <Host>
         <div class="container my-5 containerMovieDetail">
-          <div id="movieTitle">Joker</div>
-          <div class="container headerMovieDetail">
+          <div class="container pt-3">
+            <div id="movieTitle">{this.movieTitle}</div>
+          </div>
+          <div class="container headerMovieDetail" style={{'background-image' : `url(${this.imageBackdropUrl})`}}>
             <div class="row">
               <div class="col-12 col-lg-4 title-wrapper">
               </div>
@@ -28,7 +30,7 @@ export class MovieDetail {
               <div class="col-12 col-lg-4">
                 Trailer
                 <div class="my-5">
-                  <img src="/assets/images/headerImageMovieDetail.jpg" class="imageTrailer"></img>
+                  <img src={this.imageBackdropUrl} class="imageTrailer"></img>
                 </div>
               </div>
               <div class="col-12 col-lg-4">
@@ -55,7 +57,7 @@ export class MovieDetail {
               <div class="col-12 col-lg-4">
                 Beschreibung
                 <div class="my-5 descriptionMovie">
-                  1981 in Gotham: Arthur Fleck fristet ein trostloses Leben. Sein Leben nimmt eine dramatische Wendung, als er von seinem Kollegen Randall einen Revolver geschenkt bekommt.
+                  {this.movieDescription}
                 </div>
               </div>
             </div>

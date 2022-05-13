@@ -9,15 +9,18 @@ export class MovieOutput {
   @Prop() apiKey: string = 'api_key=e6ddd5d3d3a06af375cb7f8401967566';
   @Prop() baseURL: string = 'https://api.themoviedb.org/3';
   @Prop() imagePosterUrl: string = 'https://image.tmdb.org/t/p/w500';
+  @Prop() imageBackdropUrl: string = 'https://image.tmdb.org/t/p/original';
   @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey;
 
   @State() currentDisplayedMovies: any[];
+  @State() detailDisplayed: boolean = false;
   
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
   favoritMovies: any[] = [];
   watchlisDisplayed: boolean = false;
   favoritDisplayed: boolean = false;
+  currentDisplayedDetail: any;
 
   @Listen('addToWatchlist')
   addToWatchlistHandler(event: CustomEvent<MovieIcon>){
@@ -61,6 +64,13 @@ export class MovieOutput {
     }
   }
 
+  @Listen('showDetail')
+  showDetailHandler(event: CustomEvent<MovieIcon>){
+    const targetElement : HTMLElement = event.target as HTMLElement;
+    this.currentDisplayedDetail = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
+    this.detailDisplayed = true;
+  }
+
   getMovieByTitle(title : string) : object {
     let foundMovie : object;
     this.currentDisplayedMovies.filter(movie => {
@@ -94,6 +104,7 @@ export class MovieOutput {
   async showWatchlist(){
     this.watchlisDisplayed = true;
     this.favoritDisplayed = false;
+    this.detailDisplayed = false;
     this.currentDisplayedMovies = this.watchlistMovies;
   }
 
@@ -101,6 +112,7 @@ export class MovieOutput {
   async showNewMovielist(){
     this.watchlisDisplayed = false;
     this.favoritDisplayed = false;
+    this.detailDisplayed = false;
     this.currentDisplayedMovies = this.newMovies;
   }
 
@@ -108,6 +120,7 @@ export class MovieOutput {
   async showFavorit(){
     this.watchlisDisplayed = false;
     this.favoritDisplayed = true;
+    this.detailDisplayed = false;
     this.currentDisplayedMovies = this.favoritMovies;
   }
 
@@ -119,9 +132,13 @@ export class MovieOutput {
   }
 
   render() {
-    console.log(this.newMovies)
+    console.log(this.currentDisplayedDetail)
     return(
-      this.currentDisplayedMovies.length > 0
+      this.detailDisplayed
+      ?
+      <movie-detail movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path}></movie-detail>
+      :
+      (this.currentDisplayedMovies.length > 0
         ? 
           this.currentDisplayedMovies?.map((movie) => {
             return(
@@ -130,6 +147,7 @@ export class MovieOutput {
           })
         :
           <p id="no-movies-message">Auf dieser Liste befinden sich momentan keine Filme. Wechsel zu einer anderen Liste um Filme zu dieser Liste hinzufügen.</p>
+      )
     )
   }
 }

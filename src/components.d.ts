@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
     interface MovieDetail {
-        "imagePosterUrl": string;
+        "imageBackdropUrl": string;
         "movieDescription": string;
         "movieLength": number;
         "movieTitle": string;
@@ -25,6 +25,7 @@ export namespace Components {
         "apiKey": string;
         "apiURL": string;
         "baseURL": string;
+        "imageBackdropUrl": string;
         "imagePosterUrl": string;
         "showFavorit": () => Promise<void>;
         "showNewMovielist": () => Promise<void>;
@@ -76,7 +77,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MovieDetail {
-        "imagePosterUrl"?: string;
+        "imageBackdropUrl"?: string;
         "movieDescription"?: string;
         "movieLength"?: number;
         "movieTitle"?: string;
@@ -92,11 +93,13 @@ declare namespace LocalJSX {
         "onAddToWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
         "onRemoveFromFavorit"?: (event: CustomEvent<MovieIcon>) => void;
         "onRemoveFromWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
+        "onShowDetail"?: (event: CustomEvent<MovieIcon>) => void;
     }
     interface MovieOutput {
         "apiKey"?: string;
         "apiURL"?: string;
         "baseURL"?: string;
+        "imageBackdropUrl"?: string;
         "imagePosterUrl"?: string;
     }
     interface MoviePreview {

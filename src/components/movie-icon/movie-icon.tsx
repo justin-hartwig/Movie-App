@@ -18,14 +18,15 @@ export class MovieIcon {
   @Prop() iconCategories : iconCategorie[] = [{name: "watchlist-add", fileName:"watchlist.svg", altAttribute: "Zur Watchlist hinzufügen", onClickFunction: this.onWatchlistAddButtonClicked.bind(this)}, 
                             {name: "watchlist-remove", fileName:"removefromwatchlist.svg", altAttribute: "Von der Watchlist entfernen", onClickFunction: this.onWatchlistRemoveButtonClicked.bind(this)},
                             {name: "favorit-add", fileName:"favourite.svg", altAttribute: "Zu den Favoriten hinzufügen", onClickFunction: this.onFavoritAddButtonClicked.bind(this)},
-                            {name: "favorit-remove", fileName:"facebook.svg", altAttribute: "Von den Favoriten entfernen", onClickFunction: this.onFavoritRemoveButtonClicked.bind(this)},
-                            {name: "detail", fileName:"arrowdowncircle.svg", altAttribute: "Details", onClickFunction: {}}];
+                            {name: "favorit-remove", fileName:"removefavourite.svg", altAttribute: "Von den Favoriten entfernen", onClickFunction: this.onFavoritRemoveButtonClicked.bind(this)},
+                            {name: "detail", fileName:"arrowdowncircle.svg", altAttribute: "Details", onClickFunction: this.onShowDetailClicked.bind(this)}];
   @Prop() iconName : string;
 
   @Event({bubbles:true, composed:true}) addToWatchlist: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) removeFromWatchlist: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) addToFavorit: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) removeFromFavorit: EventEmitter<MovieIcon>;
+  @Event({bubbles:true, composed:true}) showDetail: EventEmitter<MovieIcon>;
 
   @State() onWatchlist: boolean = false;
   @State() onFavorit: boolean = false;
@@ -48,6 +49,10 @@ export class MovieIcon {
   onFavoritRemoveButtonClicked(){
     this.onFavorit = false;
     this.removeFromFavorit.emit(this);
+  }
+
+  onShowDetailClicked(){
+    this.showDetail.emit(this);
   }
 
   iconCategorieByName(name : string) : iconCategorie {

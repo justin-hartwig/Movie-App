@@ -1,8 +1,32 @@
 @import "../../global/global.scss";
 
+movie-detail {
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 5;
+    }
+}
+
 .containerMovieDetail {
     font-family: $mainFont;
     color: $secondary;
+    background-color: $bg-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 5rem auto;
+    z-index: 10;
+    overflow: scroll; 
+    border-radius: $border-radius-cards;
 }
 
 #movieTitle {
@@ -11,7 +35,6 @@
 }
 
 .headerMovieDetail {
-    background-image: url('/assets/images/headerImageMovieDetail.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
