@@ -8,8 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
     interface MovieDetail {
+        "apiKey": string;
+        "baseUrl": string;
         "imageBackdropUrl": string;
         "movieDescription": string;
+        "movieId": string;
         "movieLength": number;
         "movieTitle": string;
     }
@@ -77,10 +80,14 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MovieDetail {
+        "apiKey"?: string;
+        "baseUrl"?: string;
         "imageBackdropUrl"?: string;
         "movieDescription"?: string;
+        "movieId"?: string;
         "movieLength"?: number;
         "movieTitle"?: string;
+        "onCloseDetail"?: (event: CustomEvent<any>) => void;
     }
     interface MovieHeader {
         "headerBGImage"?: string;

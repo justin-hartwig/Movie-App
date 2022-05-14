@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'movie-detail',
@@ -7,25 +7,63 @@ import { Component, Host, h, Prop } from '@stencil/core';
 })
 
 export class MovieDetail {
+  @Prop() movieId: string;
   @Prop() movieTitle: string;
   @Prop() movieDescription: string;
   @Prop() movieLength: number;
   @Prop() imageBackdropUrl: string;
+  @Prop() apiKey: string;
+  @Prop() baseUrl: string;
+  
+  movieRuntinme: number;
+  movieGenres: string = "";
+
+  @Event({bubbles:true, composed:true}) closeDetail: EventEmitter;
+
+  onCloseButtonClicked(){
+    this.closeDetail.emit(this);
+  }
+
+  async fetchAdditionalContent() {
+    let fetchUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey;
+    return(
+      fetch(fetchUrl)
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log(responseJson)
+          this.movieRuntinme = responseJson.runtime;
+          let index = 0;
+          responseJson.genres.forEach(genre => {
+            index ++;
+            this.movieGenres += genre.name;
+            if(index < responseJson.genres.length){
+              this.movieGenres += ", ";
+            }
+          });
+      })
+    )
+  }
+
+  //InitalLoad
+  async componentWillLoad(){
+    await this.fetchAdditionalContent();
+  }
 
   render() {
     return (
       <Host>
-        <div class="container my-5 containerMovieDetail">
-          <div class="container pt-3">
+        <div class="container my-5 px-5 containerMovieDetail">
+          <button class="btn button-close" onClick={this.onCloseButtonClicked.bind(this)}>
+            <img src="/assets/images/icons/close.svg"></img>
+          </button>
+          <div class="pt-3">
             <div id="movieTitle">{this.movieTitle}</div>
           </div>
-          <div class="container headerMovieDetail" style={{'background-image' : `url(${this.imageBackdropUrl})`}}>
-            <div class="row">
-              <div class="col-12 col-lg-4 title-wrapper">
-              </div>
-            </div>
+          <div class="headerMovieDetail">
+            <div class="col-12 col-lg-4 title-wrapper" style={{'background-image' : `url(${this.imageBackdropUrl})`}}>
           </div>
-          <div class="container my-5 container2-MovieDetails">
+          </div>
+          <div class="my-5 container2-MovieDetails">
             <div class="row">
               <div class="col-12 col-lg-4">
                 Trailer
@@ -39,11 +77,11 @@ export class MovieDetail {
                   <div class="infoTitle">
                     Länge
                   </div>
-                  <div class="lengthFromApi">132min</div>
+                  <div class="lengthFromApi">{this.movieRuntinme} min</div>
                   <div class="infoTitle">
                     Genre
                   </div>
-                  <div class="genreFromApi">Thriller</div>
+                  <div class="genreFromApi">{this.movieGenres}</div>
                   <div class="infoTitle">
                     Hauptdarsteller
                   </div>

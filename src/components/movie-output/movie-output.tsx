@@ -71,6 +71,11 @@ export class MovieOutput {
     this.detailDisplayed = true;
   }
 
+  @Listen('closeDetail')
+  closeDetailHandler(){
+    this.detailDisplayed = false;
+  }
+
   getMovieByTitle(title : string) : object {
     let foundMovie : object;
     this.currentDisplayedMovies.filter(movie => {
@@ -136,7 +141,7 @@ export class MovieOutput {
     return(
       this.detailDisplayed
       ?
-      <movie-detail movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path}></movie-detail>
+      <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path}></movie-detail>
       :
       (this.currentDisplayedMovies.length > 0
         ? 
