@@ -14,9 +14,13 @@ export class MovieDetail {
   @Prop() imageBackdropUrl: string;
   @Prop() apiKey: string;
   @Prop() baseUrl: string;
+
+  youTubeBaseUrl: string = "https://www.youtube.com/embed/";
   
   movieRuntinme: number;
   movieGenres: string = "";
+  movieCast: string = "";
+  movieTrailerUrl: string = "";
 
   @Event({bubbles:true, composed:true}) closeDetail: EventEmitter;
 
@@ -24,32 +28,44 @@ export class MovieDetail {
     this.closeDetail.emit(this);
   }
 
-  async fetchAdditionalContent() {
-    let fetchUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey;
-    return(
-      fetch(fetchUrl)
-      .then((response) => response.json())
-      .then((responseJson) => {
-          console.log(responseJson)
-          this.movieRuntinme = responseJson.runtime;
-          let index = 0;
-          responseJson.genres.forEach(genre => {
-            index ++;
-            this.movieGenres += genre.name;
-            if(index < responseJson.genres.length){
-              this.movieGenres += ", ";
-            }
-          });
-      })
-    )
+  async fetchAdditionalContent(){
+    let fetchDataUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey;
+    let fetchVideoUrl = this.baseUrl + "/movie/" + this.movieId + "/videos?" + this.apiKey;
+    let fetchCreditsUrl = this.baseUrl + "/movie/" + this.movieId + "/credits?" + this.apiKey;
+
+    let responseData = await fetch(fetchDataUrl).then(response => response.json());
+    let responseVideo = await fetch(fetchVideoUrl).then(response => response.json());
+    let responseCredits = await fetch(fetchCreditsUrl).then(response => response.json());
+
+    this.movieRuntinme = responseData.runtime;
+    this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
+    this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
+    this.movieCast = this.stringifyApiData(responseCredits, "cast", 3);
+  }
+
+  stringifyApiData(data : any, key : string, length : number) : string {
+    let result : string = "";
+    let index = 0;
+    for(let subCategory of data[key]){
+      index ++;
+      result += subCategory.name;
+      if(index < data[key].length && index < length){
+        result += ", ";
+      }
+      if(index >= length){
+        break;
+      }
+    }
+    return result;
   }
 
   //InitalLoad
-  async componentWillLoad(){
-    await this.fetchAdditionalContent();
+  componentWillLoad(){
+    return this.fetchAdditionalContent();
   }
 
   render() {
+    console.log("rendert")
     return (
       <Host>
         <div class="container my-5 px-5 containerMovieDetail">
@@ -68,7 +84,7 @@ export class MovieDetail {
               <div class="col-12 col-lg-4">
                 Trailer
                 <div class="my-5">
-                  <img src={this.imageBackdropUrl} class="imageTrailer"></img>
+                <iframe width="100%" height="220" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                 </div>
               </div>
               <div class="col-12 col-lg-4">
@@ -85,7 +101,7 @@ export class MovieDetail {
                   <div class="infoTitle">
                     Hauptdarsteller
                   </div>
-                  <div class="mainActorsFromApi">Joaquin Phoenix, Robert de Niro</div>
+                  <div class="mainActorsFromApi">{this.movieCast}</div>
                   <div class="infoTitle">
                     Regie
                   </div>

@@ -137,7 +137,6 @@ export class MovieOutput {
   }
 
   render() {
-    console.log(this.currentDisplayedDetail)
     return(
       this.detailDisplayed
       ?
