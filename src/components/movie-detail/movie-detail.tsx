@@ -48,6 +48,8 @@ export class MovieDetail {
     this.movieCast = responseCredits.cast.slice(0, 6);
     this.similarMovies = responseSimilarMovies.results.slice(0, 6);
 
+    console.log(this.movieCast)
+
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
     this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
@@ -149,47 +151,13 @@ export class MovieDetail {
               Besetzung
             </div>
             <div class="row my-5 actorsList">
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 1
-                </div>
-              </div>
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 2
-                </div>
-              </div>
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 3
-                </div>
-              </div>
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 4
-                </div>
-              </div>
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 5
-                </div>
-              </div>
-              <div class="col-6 col-lg-2">
-                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-                <div class="nameActor">
-                  Name 6
-                </div>
-              </div>
+              {this.movieCast?.map((person) => {
+                return(<movie-detail-actor class="col-12 col-sm-6 col-lg-3 col-xl-2" person-name={person.name} person-img={person.profile_path}></movie-detail-actor>)  
+                })}
             </div>
             <div class="row">Ähnliche Titel</div>
             <div class="row my-5 similarMovies">
               {this.similarMovies?.map((movie) => {
-                console.log(movie.title.replace(";", ""))
                 return(<movie-detail-similarmovie class="col-12 col-sm-6 col-lg-3 col-xl-2" movie-title={movie.title} image-poster-url={this.imagePosterUrl + movie.poster_path}></movie-detail-similarmovie>)  
                 })}
             </div>

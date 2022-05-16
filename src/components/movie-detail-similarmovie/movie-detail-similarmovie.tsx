@@ -16,7 +16,7 @@ export class MovieDetailSimilarmovie {
           <div class="movie-card" style={{'background-image' : `url(${this.imagePosterUrl})`}}>
           </div>
           <div class="titleSimilarMovie">
-            {this.movieTitle.replace(";", "")};
+            {this.movieTitle}
           </div>
       </Host>
     );
