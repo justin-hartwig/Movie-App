@@ -10,18 +10,27 @@ import { Component, Host, h, Prop } from '@stencil/core';
 export class MovieHeader {
   @Prop() headerBGImage: string = "headerImage.jpeg";
 
+  /** 
+    * Calls the showNewMovielist() Method on the movie-output component on link clicked.
+  */
   async onNewMoviesClicked(){
       await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');
       await movieOutput.showNewMovielist();
   }
 
+  /** 
+    * Calls the showWatchlist() Method on the movie-output component on link clicked.
+  */
   async onWatchlistClicked(){
       await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');
       await movieOutput.showWatchlist();
   }
 
+  /** 
+    * Calls the showFavorit() Method on the movie-output component on link clicked.
+  */
   async onFavoritesClicked(){
     await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');

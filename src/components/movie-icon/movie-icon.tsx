@@ -1,5 +1,12 @@
 import { Component, EventEmitter, h, Prop, Event, State } from '@stencil/core';
 
+/** 
+ * Data structure for icon categories.
+ * With name for identification, 
+ * fileName to display the right svg image,
+ * altAttribute for accessibility
+ * and the function with is called on click.
+*/
 export interface iconCategorie {
   name : string;
   fileName : string;
@@ -15,6 +22,7 @@ export interface iconCategorie {
 
 export class MovieIcon {
   @Prop() baseIconPath : string = "/assets/images/icons/"
+  //Initilization of the icon categories
   @Prop() iconCategories : iconCategorie[] = [{name: "watchlist-add", fileName:"watchlist.svg", altAttribute: "Zur Watchlist hinzufügen", onClickFunction: this.onWatchlistAddButtonClicked.bind(this)}, 
                             {name: "watchlist-remove", fileName:"removefromwatchlist.svg", altAttribute: "Von der Watchlist entfernen", onClickFunction: this.onWatchlistRemoveButtonClicked.bind(this)},
                             {name: "favorit-add", fileName:"favourite.svg", altAttribute: "Zu den Favoriten hinzufügen", onClickFunction: this.onFavoritAddButtonClicked.bind(this)},
@@ -28,9 +36,13 @@ export class MovieIcon {
   @Event({bubbles:true, composed:true}) removeFromFavorit: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) showDetail: EventEmitter<MovieIcon>;
 
+  //Current icon state to trigger rerendering if icon is clicked.
   @State() onWatchlist: boolean = false;
   @State() onFavorit: boolean = false;
 
+  /** 
+   * Emits event on whatchlist button pressed to trigger rerendering and the coressponding listener in movie-output.
+  */
   onWatchlistAddButtonClicked(){
     this.onWatchlist = true;
     this.addToWatchlist.emit(this);
@@ -41,6 +53,9 @@ export class MovieIcon {
     this.removeFromWatchlist.emit(this);
   }
 
+  /** 
+   * Emits event on favorit button pressed to trigger rerendering and the coressponding listener in movie-output.
+  */
   onFavoritAddButtonClicked(){
     this.onFavorit = true;
     this.addToFavorit.emit(this);
@@ -51,10 +66,19 @@ export class MovieIcon {
     this.removeFromFavorit.emit(this);
   }
 
+  /** 
+   * Emits event on detail button pressed to trigger coressponding listener in movie-output.
+  */
   onShowDetailClicked(){
     this.showDetail.emit(this);
   }
 
+  /** 
+   * Used to determin with icon categorie belongs to a given string.
+   * 
+   * @param {string} name Name of the icon categorie.
+   * @returns {iconCategorie} The coresponding icon categorie.
+  */
   iconCategorieByName(name : string) : iconCategorie {
     let foundCategory : iconCategorie;
     this.iconCategories.filter(categorie => {
@@ -66,6 +90,7 @@ export class MovieIcon {
   }
 
   render() {
+    //Watchlist icon
     if(this.iconName === "watchlist") {
       if(this.onWatchlist){
         return(
@@ -81,6 +106,7 @@ export class MovieIcon {
         )
       }
     } 
+    //Favorit icon
     else if(this.iconName === "favorit") {
       if(this.onFavorit){
         return(
@@ -96,6 +122,7 @@ export class MovieIcon {
         )
       }
     }
+    //Other icon
     else {
       return (
         this.iconCategories.map((icon, index) => {
