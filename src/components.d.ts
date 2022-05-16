@@ -5,19 +5,87 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
+    interface MovieDetail {
+        "apiKey": string;
+        "appLanguage": string;
+        "baseUrl": string;
+        "imageBackdropUrl": string;
+        "imagePosterUrl": string;
+        "movieDescription": string;
+        "movieId": string;
+        "movieLength": number;
+        "movieTitle": string;
+    }
+    interface MovieDetailActor {
+        "personImg": string;
+        "personName": string;
+    }
+    interface MovieDetailSimilarmovie {
+        "imagePosterUrl": string;
+        "movieTitle": string;
+    }
     interface MovieHeader {
         "headerBGImage": string;
     }
+    interface MovieIcon {
+        "baseIconPath": string;
+        "iconCategories": iconCategorie[];
+        "iconName": string;
+    }
+    interface MovieOutput {
+        "apiKey": string;
+        "apiURL": string;
+        "baseURL": string;
+        "imageBackdropUrl": string;
+        "imagePosterUrl": string;
+        "showFavorit": () => Promise<void>;
+        "showNewMovielist": () => Promise<void>;
+        "showSearch": () => Promise<void>;
+        "showWatchlist": () => Promise<void>;
+    }
     interface MoviePreview {
+        "imagePosterUrl": string;
+        "movieTitle": string;
     }
 }
 declare global {
+    interface HTMLMovieDetailElement extends Components.MovieDetail, HTMLStencilElement {
+    }
+    var HTMLMovieDetailElement: {
+        prototype: HTMLMovieDetailElement;
+        new (): HTMLMovieDetailElement;
+    };
+    interface HTMLMovieDetailActorElement extends Components.MovieDetailActor, HTMLStencilElement {
+    }
+    var HTMLMovieDetailActorElement: {
+        prototype: HTMLMovieDetailActorElement;
+        new (): HTMLMovieDetailActorElement;
+    };
+    interface HTMLMovieDetailSimilarmovieElement extends Components.MovieDetailSimilarmovie, HTMLStencilElement {
+    }
+    var HTMLMovieDetailSimilarmovieElement: {
+        prototype: HTMLMovieDetailSimilarmovieElement;
+        new (): HTMLMovieDetailSimilarmovieElement;
+    };
     interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
     }
     var HTMLMovieHeaderElement: {
         prototype: HTMLMovieHeaderElement;
         new (): HTMLMovieHeaderElement;
+    };
+    interface HTMLMovieIconElement extends Components.MovieIcon, HTMLStencilElement {
+    }
+    var HTMLMovieIconElement: {
+        prototype: HTMLMovieIconElement;
+        new (): HTMLMovieIconElement;
+    };
+    interface HTMLMovieOutputElement extends Components.MovieOutput, HTMLStencilElement {
+    }
+    var HTMLMovieOutputElement: {
+        prototype: HTMLMovieOutputElement;
+        new (): HTMLMovieOutputElement;
     };
     interface HTMLMoviePreviewElement extends Components.MoviePreview, HTMLStencilElement {
     }
@@ -26,18 +94,67 @@ declare global {
         new (): HTMLMoviePreviewElement;
     };
     interface HTMLElementTagNameMap {
+        "movie-detail": HTMLMovieDetailElement;
+        "movie-detail-actor": HTMLMovieDetailActorElement;
+        "movie-detail-similarmovie": HTMLMovieDetailSimilarmovieElement;
         "movie-header": HTMLMovieHeaderElement;
+        "movie-icon": HTMLMovieIconElement;
+        "movie-output": HTMLMovieOutputElement;
         "movie-preview": HTMLMoviePreviewElement;
     }
 }
 declare namespace LocalJSX {
+    interface MovieDetail {
+        "apiKey"?: string;
+        "appLanguage"?: string;
+        "baseUrl"?: string;
+        "imageBackdropUrl"?: string;
+        "imagePosterUrl"?: string;
+        "movieDescription"?: string;
+        "movieId"?: string;
+        "movieLength"?: number;
+        "movieTitle"?: string;
+        "onCloseDetail"?: (event: CustomEvent<any>) => void;
+    }
+    interface MovieDetailActor {
+        "personImg"?: string;
+        "personName"?: string;
+    }
+    interface MovieDetailSimilarmovie {
+        "imagePosterUrl"?: string;
+        "movieTitle"?: string;
+    }
     interface MovieHeader {
         "headerBGImage"?: string;
     }
+    interface MovieIcon {
+        "baseIconPath"?: string;
+        "iconCategories"?: iconCategorie[];
+        "iconName"?: string;
+        "onAddToFavorit"?: (event: CustomEvent<MovieIcon>) => void;
+        "onAddToWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
+        "onRemoveFromFavorit"?: (event: CustomEvent<MovieIcon>) => void;
+        "onRemoveFromWatchlist"?: (event: CustomEvent<MovieIcon>) => void;
+        "onShowDetail"?: (event: CustomEvent<MovieIcon>) => void;
+    }
+    interface MovieOutput {
+        "apiKey"?: string;
+        "apiURL"?: string;
+        "baseURL"?: string;
+        "imageBackdropUrl"?: string;
+        "imagePosterUrl"?: string;
+    }
     interface MoviePreview {
+        "imagePosterUrl"?: string;
+        "movieTitle"?: string;
     }
     interface IntrinsicElements {
+        "movie-detail": MovieDetail;
+        "movie-detail-actor": MovieDetailActor;
+        "movie-detail-similarmovie": MovieDetailSimilarmovie;
         "movie-header": MovieHeader;
+        "movie-icon": MovieIcon;
+        "movie-output": MovieOutput;
         "movie-preview": MoviePreview;
     }
 }
@@ -45,7 +162,12 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "movie-detail": LocalJSX.MovieDetail & JSXBase.HTMLAttributes<HTMLMovieDetailElement>;
+            "movie-detail-actor": LocalJSX.MovieDetailActor & JSXBase.HTMLAttributes<HTMLMovieDetailActorElement>;
+            "movie-detail-similarmovie": LocalJSX.MovieDetailSimilarmovie & JSXBase.HTMLAttributes<HTMLMovieDetailSimilarmovieElement>;
             "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
+            "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
+            "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;
             "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
         }
     }

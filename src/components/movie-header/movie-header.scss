@@ -6,13 +6,13 @@
     background-position: center;
     background-size: cover;
     min-height: 40vh;
-    border-radius: 30px;
+    border-radius: $border-radius-cards;
 
 }
 
 .title-wrapper {
     h1 {
-        font-family: 'Raleway', sans-serif;
+        font-family: $mainFont;
         font-size: 5rem;
         color: $secondary;
         font-weight: 700;
@@ -36,7 +36,15 @@
         a {
             font-size: 1.2rem;
             color: $secondary;
+            cursor: pointer;
+            transition: 0.1s ease-in;
         }
+
+        a:hover{
+            font-size: 1.5rem;
+            transition: 0.1s ease-in;
+        }
+        
     }
 }
 

@@ -1,0 +1,113 @@
+@import "../../global/global.scss";
+
+movie-detail {
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 5;
+    }
+
+    .button-close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background-color: transparent;
+        border: none;
+        filter: $white-filter;
+    }
+}
+
+.containerMovieDetail {
+    font-family: $mainFont;
+    color: $secondary;
+    background-color: $bg-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 5rem auto;
+    z-index: 10;
+    overflow-y: scroll; 
+    max-height: 80vh;
+    border-radius: $border-radius-cards;
+
+    .title-wrapper {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        min-height: 40vh;
+        border-radius: 30px;
+        width: 100%;
+    }
+}
+
+#movieTitle {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-right: 5rem;
+}
+
+.container2-MovieDetails {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.imageTrailer {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+}
+
+.infoTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.lengthFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.genreFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.mainActorsFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.directorFromApi {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.descriptionMovie {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.actorsList{
+    text-align: center;
+}
+
+.imageActor{
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+}
+
+.nameActor{
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+}

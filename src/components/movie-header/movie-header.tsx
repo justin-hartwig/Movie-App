@@ -5,12 +5,28 @@ import { Component, Host, h, Prop } from '@stencil/core';
   tag: 'movie-header',
   styleUrl: 'movie-header.scss',
   shadow: false,
-  assetsDirs: ['assets'],
 })
 
 export class MovieHeader {
-
   @Prop() headerBGImage: string = "headerImage.jpeg";
+
+  async onNewMoviesClicked(){
+      await customElements.whenDefined('movie-output');
+      const movieOutput = document.querySelector('movie-output');
+      await movieOutput.showNewMovielist();
+  }
+
+  async onWatchlistClicked(){
+      await customElements.whenDefined('movie-output');
+      const movieOutput = document.querySelector('movie-output');
+      await movieOutput.showWatchlist();
+  }
+
+  async onFavoritesClicked(){
+    await customElements.whenDefined('movie-output');
+      const movieOutput = document.querySelector('movie-output');
+      await movieOutput.showFavorit();
+  }
 
   render() {
     return (
@@ -32,13 +48,13 @@ export class MovieHeader {
               <input type="text" id="search-movies" name="search-movies" placeholder="Suche nach Filmen"></input>
               <ul id="menu">
                 <li>
-                  <a>Neuste Filme</a>
+                  <a onClick={this.onNewMoviesClicked.bind(this)}>Neuste Filme</a>
                 </li>
                 <li>
-                  <a>Meine Watchlist</a>
+                  <a onClick={this.onWatchlistClicked.bind(this)}>Meine Watchlist</a>
                 </li>
                 <li>
-                  <a>Filme A-Z</a>
+                  <a onClick={this.onFavoritesClicked.bind(this)}>Favoriten</a>
                 </li>
               </ul>  
             </div>
