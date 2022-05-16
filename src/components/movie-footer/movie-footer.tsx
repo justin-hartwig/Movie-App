@@ -13,8 +13,11 @@ export class MovieFooter {
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <p>The Movie App</p>
-              <img src="/assets/images/icons/Logo_MovieApp.svg"></img>
+              <p class="d-flex flex-column app-icon-text">
+                The 
+                  <img class="app-icon" src="/assets/images/icons/Logo_MovieApp.svg"></img>
+                App
+              </p>
               
             </div>
             <div class="col-md-4">

@@ -36,9 +36,7 @@ export class MovieHeader {
             <div class="col-12 col-lg-4 title-wrapper">
               <h1>
                 The
-                <br></br>
-                Movie
-                <br></br>
+                <img class="app-icon" src="/assets/images/icons/Logo_MovieApp.svg"></img>
                 App
               </h1>
             </div>
