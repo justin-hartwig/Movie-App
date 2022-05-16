@@ -10,18 +10,27 @@ import { Component, Host, h, Prop } from '@stencil/core';
 export class MovieHeader {
   @Prop() headerBGImage: string = "headerImage.jpeg";
 
+  /** 
+    * Calls the showNewMovielist() Method on the movie-output component on link clicked.
+  */
   async onNewMoviesClicked(){
       await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');
       await movieOutput.showNewMovielist();
   }
 
+  /** 
+    * Calls the showWatchlist() Method on the movie-output component on link clicked.
+  */
   async onWatchlistClicked(){
       await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');
       await movieOutput.showWatchlist();
   }
 
+  /** 
+    * Calls the showFavorit() Method on the movie-output component on link clicked.
+  */
   async onFavoritesClicked(){
     await customElements.whenDefined('movie-output');
       const movieOutput = document.querySelector('movie-output');
@@ -36,16 +45,14 @@ export class MovieHeader {
             <div class="col-12 col-lg-4 title-wrapper">
               <h1>
                 The
-                <br></br>
-                Movie
-                <br></br>
+                <img class="app-icon" src="/assets/images/icons/Logo_MovieApp.svg"></img>
                 App
               </h1>
             </div>
             <div class="col-12 col-lg-4">
             </div>
             <div class="col-12 col-lg-4 menu-wrapper">
-              <input type="text" id="search-movies" name="search-movies" placeholder="Suche nach Filmen"></input>
+              <movie-search></movie-search>
               <ul id="menu">
                 <li>
                   <a onClick={this.onNewMoviesClicked.bind(this)}>Neuste Filme</a>
