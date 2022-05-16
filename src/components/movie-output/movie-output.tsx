@@ -9,6 +9,7 @@ export class MovieOutput {
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
   favoritMovies: any[] = [];
+  searchedMovies: any[] = [];
   watchlisDisplayed: boolean = false;
   favoritDisplayed: boolean = false;
   currentDisplayedDetail: any;
@@ -135,6 +136,7 @@ export class MovieOutput {
     this.watchlisDisplayed = false;
     this.favoritDisplayed = false;
     this.detailDisplayed = false;
+    this.currentDisplayedMovies = this.searchedMovies;
   }
 
 
