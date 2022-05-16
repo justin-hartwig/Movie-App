@@ -148,7 +148,7 @@ export class MovieOutput {
     return(
       this.detailDisplayed
       ?
-      <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path} app-language={this.language}></movie-detail>
+      <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path} image-poster-url={this.imagePosterUrl} app-language={this.language}></movie-detail>
       :
       (this.currentDisplayedMovies.length > 0
         ? 

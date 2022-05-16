@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'movie-detail-similarmovie',
@@ -6,16 +6,18 @@ import { Component, Host, h } from '@stencil/core';
   shadow: false,
 })
 export class MovieDetailSimilarmovie {
+  @Prop() movieTitle: string;
+  @Prop() imagePosterUrl: string;
+
 
   render() {
     return (
       <Host>
-        <div class="col-6 col-lg-2">
-          <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-          <div class="titleSimilarMovie">
-            Name 1
+          <div class="movie-card" style={{'background-image' : `url(${this.imagePosterUrl})`}}>
           </div>
-        </div>
+          <div class="titleSimilarMovie">
+            {this.movieTitle.replace(";", "")};
+          </div>
       </Host>
     );
   }

@@ -2,10 +2,13 @@
     text-align: center;
 }
 
-.imageSimilarMovie{
+.movie-card {
     width: 100%;
-    height: auto;
+    height: 16rem;
     border-radius: 30px;
+    background-image: url(--bg-img);
+    background-position: center;
+    background-size: cover;
 }
 
 .titleSimilarMovie{

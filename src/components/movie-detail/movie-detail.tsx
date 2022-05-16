@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'movie-detail',
@@ -11,6 +11,7 @@ export class MovieDetail {
   @Prop() movieTitle: string;
   @Prop() movieDescription: string;
   @Prop() movieLength: number;
+  @Prop() imagePosterUrl: string;
   @Prop() imageBackdropUrl: string;
   @Prop() apiKey: string;
   @Prop() baseUrl: string;
@@ -24,6 +25,7 @@ export class MovieDetail {
   movieCast: any;
   movieTrailerUrl: string = "";
   movieDirection: string = "";
+  similarMovies: any;
 
 
   @Event({ bubbles: true, composed: true }) closeDetail: EventEmitter;
@@ -43,7 +45,8 @@ export class MovieDetail {
     let responseCredits = await fetch(fetchCreditsUrl).then(response => response.json());
     let responseSimilarMovies = await fetch(similarMoviesUrl).then(response => response.json());
     let responseDirection = this.filterDirection(responseCredits.crew);
-    let movieCast = responseCredits.cast.slice(0, 6);
+    this.movieCast = responseCredits.cast.slice(0, 6);
+    this.similarMovies = responseSimilarMovies.results.slice(0, 6);
 
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
@@ -51,6 +54,7 @@ export class MovieDetail {
     this.movieCastNames = this.stringifyApiData(responseCredits, "cast", 3);
     this.movieDirection = this.stringifyDirectorData(responseDirection);
 
+    console.log(this.similarMovies.results);
   }
 
   stringifyApiData(data: any, key: string, length: number): string {
@@ -96,7 +100,6 @@ export class MovieDetail {
 
   render() {
     return (
-      <Host>
         <div class="container my-5 px-5 containerMovieDetail">
           <button class="btn button-close" onClick={this.onCloseButtonClicked.bind(this)}>
             <img src="/assets/images/icons/close.svg"></img>
@@ -187,14 +190,13 @@ export class MovieDetail {
             </div>
             <div class="row">Ähnliche Titel</div>
             <div class="row my-5 similarMovies">
-              <movie-detail-similarmovie>
-
-              </movie-detail-similarmovie>
+              {this.similarMovies?.map((movie) => {
+                console.log(movie.title.replace(";", ""))
+                return(<movie-detail-similarmovie class="col-12 col-sm-6 col-lg-3 col-xl-2" movie-title={movie.title} image-poster-url={this.imagePosterUrl + movie.poster_path}></movie-detail-similarmovie>)  
+                })}
             </div>
           </div>
         </div>
-
-      </Host>
     );
   }
 

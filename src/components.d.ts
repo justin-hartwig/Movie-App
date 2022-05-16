@@ -12,12 +12,15 @@ export namespace Components {
         "appLanguage": string;
         "baseUrl": string;
         "imageBackdropUrl": string;
+        "imagePosterUrl": string;
         "movieDescription": string;
         "movieId": string;
         "movieLength": number;
         "movieTitle": string;
     }
     interface MovieDetailSimilarmovie {
+        "imagePosterUrl": string;
+        "movieTitle": string;
     }
     interface MovieHeader {
         "headerBGImage": string;
@@ -95,6 +98,7 @@ declare namespace LocalJSX {
         "appLanguage"?: string;
         "baseUrl"?: string;
         "imageBackdropUrl"?: string;
+        "imagePosterUrl"?: string;
         "movieDescription"?: string;
         "movieId"?: string;
         "movieLength"?: number;
@@ -102,6 +106,8 @@ declare namespace LocalJSX {
         "onCloseDetail"?: (event: CustomEvent<any>) => void;
     }
     interface MovieDetailSimilarmovie {
+        "imagePosterUrl"?: string;
+        "movieTitle"?: string;
     }
     interface MovieHeader {
         "headerBGImage"?: string;
