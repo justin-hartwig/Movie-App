@@ -50,7 +50,7 @@ export namespace Components {
           * Displayes new movies with states, hides all other lists.
          */
         "showNewMovielist": () => Promise<void>;
-        "showSearch": () => Promise<void>;
+        "showSearch": (querry: string) => Promise<void>;
         /**
           * Displayes watchlist with states, hides all other lists.
          */
@@ -59,6 +59,8 @@ export namespace Components {
     interface MoviePreview {
         "imagePosterUrl": string;
         "movieTitle": string;
+    }
+    interface MovieSearch {
     }
 }
 declare global {
@@ -110,6 +112,12 @@ declare global {
         prototype: HTMLMoviePreviewElement;
         new (): HTMLMoviePreviewElement;
     };
+    interface HTMLMovieSearchElement extends Components.MovieSearch, HTMLStencilElement {
+    }
+    var HTMLMovieSearchElement: {
+        prototype: HTMLMovieSearchElement;
+        new (): HTMLMovieSearchElement;
+    };
     interface HTMLElementTagNameMap {
         "movie-detail": HTMLMovieDetailElement;
         "movie-detail-actor": HTMLMovieDetailActorElement;
@@ -119,6 +127,7 @@ declare global {
         "movie-icon": HTMLMovieIconElement;
         "movie-output": HTMLMovieOutputElement;
         "movie-preview": HTMLMoviePreviewElement;
+        "movie-search": HTMLMovieSearchElement;
     }
 }
 declare namespace LocalJSX {
@@ -168,6 +177,8 @@ declare namespace LocalJSX {
         "imagePosterUrl"?: string;
         "movieTitle"?: string;
     }
+    interface MovieSearch {
+    }
     interface IntrinsicElements {
         "movie-detail": MovieDetail;
         "movie-detail-actor": MovieDetailActor;
@@ -177,6 +188,7 @@ declare namespace LocalJSX {
         "movie-icon": MovieIcon;
         "movie-output": MovieOutput;
         "movie-preview": MoviePreview;
+        "movie-search": MovieSearch;
     }
 }
 export { LocalJSX as JSX };
@@ -191,6 +203,7 @@ declare module "@stencil/core" {
             "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;
             "movie-preview": LocalJSX.MoviePreview & JSXBase.HTMLAttributes<HTMLMoviePreviewElement>;
+            "movie-search": LocalJSX.MovieSearch & JSXBase.HTMLAttributes<HTMLMovieSearchElement>;
         }
     }
 }

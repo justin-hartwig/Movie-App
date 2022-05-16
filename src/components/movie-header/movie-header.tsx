@@ -52,7 +52,7 @@ export class MovieHeader {
             <div class="col-12 col-lg-4">
             </div>
             <div class="col-12 col-lg-4 menu-wrapper">
-              <input type="text" id="search-movies" name="search-movies" placeholder="Suche nach Filmen"></input>
+              <movie-search></movie-search>
               <ul id="menu">
                 <li>
                   <a onClick={this.onNewMoviesClicked.bind(this)}>Neuste Filme</a>

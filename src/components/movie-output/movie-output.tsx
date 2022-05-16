@@ -10,10 +10,12 @@ export class MovieOutput {
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
   favoritMovies: any[] = [];
+  searchedMovies: any[] = [];
   watchlisDisplayed: boolean = false;
   favoritDisplayed: boolean = false;
   currentDisplayedDetail: any;
   language: string = "&language=de";
+  searchUrl: string = "https://api.themoviedb.org/3/search/movie?";
 
   @Prop() apiKey: string = 'api_key=e6ddd5d3d3a06af375cb7f8401967566';
   @Prop() baseURL: string = 'https://api.themoviedb.org/3';
@@ -201,12 +203,24 @@ export class MovieOutput {
   }
 
   @Method()
-  async showSearch(){
-    this.watchlisDisplayed = false;
-    this.favoritDisplayed = false;
-    this.detailDisplayed = false;
+  async showSearch(querry : string){
+    if(querry === "") {
+      this.showNewMovielist();
+    }
+    else {
+      await this.fetchSearchedMovies(querry);
+      this.watchlisDisplayed = false;
+      this.favoritDisplayed = false;
+      this.detailDisplayed = false;
+      this.currentDisplayedMovies = this.searchedMovies;
+    }
   }
 
+  async fetchSearchedMovies(querry : string) {
+    let searchMovieUrl = this.searchUrl + this.apiKey + this.language + "&query=" + querry + "&page=1&include_adult=false";
+    let responseSearch = await fetch(searchMovieUrl).then(response => response.json());
+    this.searchedMovies = responseSearch.results;
+  }
 
   //Fetch data on load, display new movies.
   async componentWillLoad(){
