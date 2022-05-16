@@ -1,0 +1,14 @@
+@import "../../global/global.scss";
+
+movie-output .list-title {
+    color: $secondary;
+    font-family: $mainFont;
+    margin: 3rem auto 0 auto;
+    text-align: center;
+}
+
+.no-movies-message {
+    color: $secondary;
+    font-family: $mainFont;
+    text-align: center;
+}
