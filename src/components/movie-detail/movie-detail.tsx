@@ -45,16 +45,14 @@ export class MovieDetail {
     let responseCredits = await fetch(fetchCreditsUrl).then(response => response.json());
     let responseSimilarMovies = await fetch(similarMoviesUrl).then(response => response.json());
     let responseDirection = this.filterDirection(responseCredits.crew);
-    this.movieCast = responseCredits.cast.slice(0, 6);
-    this.similarMovies = responseSimilarMovies.results.slice(0, 6);
-
-    console.log(this.movieCast)
 
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
     this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
     this.movieCastNames = this.stringifyApiData(responseCredits, "cast", 3);
     this.movieDirection = this.stringifyDirectorData(responseDirection);
+    this.movieCast = responseCredits.cast.slice(0, 6);
+    this.similarMovies = responseSimilarMovies.results.slice(0, 6);
   }
 
   stringifyApiData(data: any, key: string, length: number): string {
@@ -116,7 +114,7 @@ export class MovieDetail {
               <div class="col-12 col-lg-4">
                 Trailer
                 <div class="my-5">
-                  <iframe width="100%" height="220" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                  <iframe width="100%" height="220" class="trailer" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                 </div>
               </div>
               <div class="col-12 col-lg-4">
