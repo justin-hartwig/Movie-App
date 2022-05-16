@@ -20,19 +20,10 @@
 }
 
 .app-icon {
-    max-width: 27rem;
     filter: $secondary-filter;
 }
 
 .menu-wrapper {
-    #search-movies {
-        width: 100%;
-        border-radius: 30px;
-        border: none;
-        padding: 1rem 1.5rem;
-        margin-bottom: 1rem;
-    }
-
     #menu {
         list-style: none;
         padding-left: 1rem;
