@@ -17,6 +17,8 @@ export namespace Components {
         "movieLength": number;
         "movieTitle": string;
     }
+    interface MovieDetailSimilarmovie {
+    }
     interface MovieHeader {
         "headerBGImage": string;
     }
@@ -48,6 +50,12 @@ declare global {
         prototype: HTMLMovieDetailElement;
         new (): HTMLMovieDetailElement;
     };
+    interface HTMLMovieDetailSimilarmovieElement extends Components.MovieDetailSimilarmovie, HTMLStencilElement {
+    }
+    var HTMLMovieDetailSimilarmovieElement: {
+        prototype: HTMLMovieDetailSimilarmovieElement;
+        new (): HTMLMovieDetailSimilarmovieElement;
+    };
     interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
     }
     var HTMLMovieHeaderElement: {
@@ -74,6 +82,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "movie-detail": HTMLMovieDetailElement;
+        "movie-detail-similarmovie": HTMLMovieDetailSimilarmovieElement;
         "movie-header": HTMLMovieHeaderElement;
         "movie-icon": HTMLMovieIconElement;
         "movie-output": HTMLMovieOutputElement;
@@ -91,6 +100,8 @@ declare namespace LocalJSX {
         "movieLength"?: number;
         "movieTitle"?: string;
         "onCloseDetail"?: (event: CustomEvent<any>) => void;
+    }
+    interface MovieDetailSimilarmovie {
     }
     interface MovieHeader {
         "headerBGImage"?: string;
@@ -118,6 +129,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "movie-detail": MovieDetail;
+        "movie-detail-similarmovie": MovieDetailSimilarmovie;
         "movie-header": MovieHeader;
         "movie-icon": MovieIcon;
         "movie-output": MovieOutput;
@@ -129,6 +141,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "movie-detail": LocalJSX.MovieDetail & JSXBase.HTMLAttributes<HTMLMovieDetailElement>;
+            "movie-detail-similarmovie": LocalJSX.MovieDetailSimilarmovie & JSXBase.HTMLAttributes<HTMLMovieDetailSimilarmovieElement>;
             "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
             "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;

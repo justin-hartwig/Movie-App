@@ -17,22 +17,22 @@ export class MovieDetail {
   @Prop() appLanguage: string;
 
   youTubeBaseUrl: string = "https://www.youtube.com/embed/";
-  
+
   movieRuntinme: number;
   movieGenres: string = "";
   movieCastNames: string = "";
-  movieCast : any;
+  movieCast: any;
   movieTrailerUrl: string = "";
   movieDirection: string = "";
 
 
-  @Event({bubbles:true, composed:true}) closeDetail: EventEmitter;
+  @Event({ bubbles: true, composed: true }) closeDetail: EventEmitter;
 
-  onCloseButtonClicked(){
+  onCloseButtonClicked() {
     this.closeDetail.emit(this);
   }
 
-  async fetchAdditionalContent(){
+  async fetchAdditionalContent() {
     let fetchDataUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey + this.appLanguage;
     let fetchVideoUrl = this.baseUrl + "/movie/" + this.movieId + "/videos?" + this.apiKey + this.appLanguage;
     let fetchCreditsUrl = this.baseUrl + "/movie/" + this.movieId + "/credits?" + this.apiKey + this.appLanguage;
@@ -43,46 +43,46 @@ export class MovieDetail {
     let responseCredits = await fetch(fetchCreditsUrl).then(response => response.json());
     let responseSimilarMovies = await fetch(similarMoviesUrl).then(response => response.json());
     let responseDirection = this.filterDirection(responseCredits.crew);
-    let movieCast = responseCredits.cast.slice(0,6);
+    let movieCast = responseCredits.cast.slice(0, 6);
 
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
     this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
     this.movieCastNames = this.stringifyApiData(responseCredits, "cast", 3);
     this.movieDirection = this.stringifyDirectorData(responseDirection);
-    
+
   }
 
-  stringifyApiData(data : any, key : string, length : number) : string {
-    let result : string = "";
+  stringifyApiData(data: any, key: string, length: number): string {
+    let result: string = "";
     let index = 0;
-    for(let subCategory of data[key]){
-      index ++;
+    for (let subCategory of data[key]) {
+      index++;
       result += subCategory.name;
-      if(index < data[key].length && index < length){
+      if (index < data[key].length && index < length) {
         result += ", ";
       }
-      if(index >= length){
+      if (index >= length) {
         break;
       }
     }
     return result;
   }
 
-  filterDirection(data : any) {
+  filterDirection(data: any) {
     return data.filter(entry => entry.known_for_department === "Directing");
   }
 
-  stringifyDirectorData(data : any) : string{
-    let result : string = "";
+  stringifyDirectorData(data: any): string {
+    let result: string = "";
     let index = 0;
-    for(let subCategory of data){
-      index ++;
+    for (let subCategory of data) {
+      index++;
       result += subCategory.name;
-      if(index < data.length && index < length){
+      if (index < data.length && index < length) {
         result += ", ";
       }
-      if(index >= length){
+      if (index >= length) {
         break;
       }
     }
@@ -90,7 +90,7 @@ export class MovieDetail {
   }
 
   //InitalLoad
-  componentWillLoad(){
+  componentWillLoad() {
     return this.fetchAdditionalContent();
   }
 
@@ -105,15 +105,15 @@ export class MovieDetail {
             <div id="movieTitle">{this.movieTitle}</div>
           </div>
           <div class="headerMovieDetail">
-            <div class="col-12 col-lg-4 title-wrapper" style={{'background-image' : `url(${this.imageBackdropUrl})`}}>
-          </div>
+            <div class="col-12 col-lg-4 title-wrapper" style={{ 'background-image': `url(${this.imageBackdropUrl})` }}>
+            </div>
           </div>
           <div class="my-5 container2-MovieDetails">
             <div class="row">
               <div class="col-12 col-lg-4">
                 Trailer
                 <div class="my-5">
-                <iframe width="100%" height="220" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                  <iframe width="100%" height="220" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                 </div>
               </div>
               <div class="col-12 col-lg-4">
@@ -146,83 +146,50 @@ export class MovieDetail {
             </div>
             <div class="row my-5">
               Besetzung
-              </div>
-              <div class="row my-5 actorsList">
+            </div>
+            <div class="row my-5 actorsList">
               <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-                Name 1
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-              Name 2
-              </div>
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 1
+                </div>
               </div>
               <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-              Name 3
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-              Name 4
-              </div>
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 2
+                </div>
               </div>
               <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-              Name 5
-              </div>
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 3
+                </div>
               </div>
               <div class="col-6 col-lg-2">
-              <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
-              <div class="nameActor">
-              Name 6
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 4
+                </div>
               </div>
+              <div class="col-6 col-lg-2">
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 5
+                </div>
+              </div>
+              <div class="col-6 col-lg-2">
+                <img src="/assets/images/actorSample.jpg" class="imageActor"></img>
+                <div class="nameActor">
+                  Name 6
+                </div>
               </div>
             </div>
             <div class="row">Ähnliche Titel</div>
             <div class="row my-5 similarMovies">
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-                Name 1
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-              Name 2
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-              Name 3
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-              Name 4
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-              Name 5
-              </div>
-              </div>
-              <div class="col-6 col-lg-2">
-              <img src="/assets/images/sampleMoviePoster.jpg" class="imageSimilarMovie"></img>
-              <div class="titleSimilarMovie">
-              Name 6
-              </div>
-              </div>
+              <movie-detail-similarmovie>
+
+              </movie-detail-similarmovie>
             </div>
           </div>
         </div>
