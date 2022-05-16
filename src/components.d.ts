@@ -9,6 +9,7 @@ import { iconCategorie } from "./components/movie-icon/movie-icon";
 export namespace Components {
     interface MovieDetail {
         "apiKey": string;
+        "appLanguage": string;
         "baseUrl": string;
         "imageBackdropUrl": string;
         "movieDescription": string;
@@ -32,6 +33,7 @@ export namespace Components {
         "imagePosterUrl": string;
         "showFavorit": () => Promise<void>;
         "showNewMovielist": () => Promise<void>;
+        "showSearch": () => Promise<void>;
         "showWatchlist": () => Promise<void>;
     }
     interface MoviePreview {
@@ -81,6 +83,7 @@ declare global {
 declare namespace LocalJSX {
     interface MovieDetail {
         "apiKey"?: string;
+        "appLanguage"?: string;
         "baseUrl"?: string;
         "imageBackdropUrl"?: string;
         "movieDescription"?: string;

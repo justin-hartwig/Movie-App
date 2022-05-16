@@ -14,13 +14,17 @@ export class MovieDetail {
   @Prop() imageBackdropUrl: string;
   @Prop() apiKey: string;
   @Prop() baseUrl: string;
+  @Prop() appLanguage: string;
 
   youTubeBaseUrl: string = "https://www.youtube.com/embed/";
   
   movieRuntinme: number;
   movieGenres: string = "";
-  movieCast: string = "";
+  movieCastNames: string = "";
+  movieCast : any;
   movieTrailerUrl: string = "";
+  movieDirection: string = "";
+
 
   @Event({bubbles:true, composed:true}) closeDetail: EventEmitter;
 
@@ -29,18 +33,24 @@ export class MovieDetail {
   }
 
   async fetchAdditionalContent(){
-    let fetchDataUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey;
-    let fetchVideoUrl = this.baseUrl + "/movie/" + this.movieId + "/videos?" + this.apiKey;
-    let fetchCreditsUrl = this.baseUrl + "/movie/" + this.movieId + "/credits?" + this.apiKey;
+    let fetchDataUrl = this.baseUrl + "/movie/" + this.movieId + "?" + this.apiKey + this.appLanguage;
+    let fetchVideoUrl = this.baseUrl + "/movie/" + this.movieId + "/videos?" + this.apiKey + this.appLanguage;
+    let fetchCreditsUrl = this.baseUrl + "/movie/" + this.movieId + "/credits?" + this.apiKey + this.appLanguage;
+    let similarMoviesUrl = this.baseUrl + "/movie/" + this.movieId + "/similar?" + this.apiKey + this.appLanguage;
 
     let responseData = await fetch(fetchDataUrl).then(response => response.json());
     let responseVideo = await fetch(fetchVideoUrl).then(response => response.json());
     let responseCredits = await fetch(fetchCreditsUrl).then(response => response.json());
+    let responseSimilarMovies = await fetch(similarMoviesUrl).then(response => response.json());
+    let responseDirection = this.filterDirection(responseCredits.crew);
+    let movieCast = responseCredits.cast.slice(0,6);
 
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
     this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
-    this.movieCast = this.stringifyApiData(responseCredits, "cast", 3);
+    this.movieCastNames = this.stringifyApiData(responseCredits, "cast", 3);
+    this.movieDirection = this.stringifyDirectorData(responseDirection);
+    
   }
 
   stringifyApiData(data : any, key : string, length : number) : string {
@@ -59,13 +69,32 @@ export class MovieDetail {
     return result;
   }
 
+  filterDirection(data : any) {
+    return data.filter(entry => entry.known_for_department === "Directing");
+  }
+
+  stringifyDirectorData(data : any) : string{
+    let result : string = "";
+    let index = 0;
+    for(let subCategory of data){
+      index ++;
+      result += subCategory.name;
+      if(index < data.length && index < length){
+        result += ", ";
+      }
+      if(index >= length){
+        break;
+      }
+    }
+    return result;
+  }
+
   //InitalLoad
   componentWillLoad(){
     return this.fetchAdditionalContent();
   }
 
   render() {
-    console.log("rendert")
     return (
       <Host>
         <div class="container my-5 px-5 containerMovieDetail">
@@ -101,11 +130,11 @@ export class MovieDetail {
                   <div class="infoTitle">
                     Hauptdarsteller
                   </div>
-                  <div class="mainActorsFromApi">{this.movieCast}</div>
+                  <div class="mainActorsFromApi">{this.movieCastNames}</div>
                   <div class="infoTitle">
                     Regie
                   </div>
-                  <div class="directorFromApi">Todd Phillips</div>
+                  <div class="directorFromApi">{this.movieDirection}</div>
                 </div>
               </div>
               <div class="col-12 col-lg-4">

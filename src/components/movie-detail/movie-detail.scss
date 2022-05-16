@@ -34,7 +34,7 @@ movie-detail {
     right: 0;
     margin: 5rem auto;
     z-index: 10;
-    overflow: scroll; 
+    overflow-y: scroll; 
     max-height: 80vh;
     border-radius: $border-radius-cards;
 

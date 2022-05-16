@@ -6,21 +6,22 @@ import { MovieIcon } from '../movie-icon/movie-icon';
   shadow: false,
 })
 export class MovieOutput {
-  @Prop() apiKey: string = 'api_key=e6ddd5d3d3a06af375cb7f8401967566';
-  @Prop() baseURL: string = 'https://api.themoviedb.org/3';
-  @Prop() imagePosterUrl: string = 'https://image.tmdb.org/t/p/w500';
-  @Prop() imageBackdropUrl: string = 'https://image.tmdb.org/t/p/original';
-  @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey;
-
-  @State() currentDisplayedMovies: any[];
-  @State() detailDisplayed: boolean = false;
-  
   newMovies: any[] = [];
   watchlistMovies: any[] = [];
   favoritMovies: any[] = [];
   watchlisDisplayed: boolean = false;
   favoritDisplayed: boolean = false;
   currentDisplayedDetail: any;
+  language: string = "&language=de";
+
+  @Prop() apiKey: string = 'api_key=e6ddd5d3d3a06af375cb7f8401967566';
+  @Prop() baseURL: string = 'https://api.themoviedb.org/3';
+  @Prop() imagePosterUrl: string = 'https://image.tmdb.org/t/p/w500';
+  @Prop() imageBackdropUrl: string = 'https://image.tmdb.org/t/p/original';
+  @Prop() apiURL: string = this.baseURL + '/discover/movie?sort_by=popularity.desc&' + this.apiKey + this.language;
+
+  @State() currentDisplayedMovies: any[];
+  @State() detailDisplayed: boolean = false;
 
   @Listen('addToWatchlist')
   addToWatchlistHandler(event: CustomEvent<MovieIcon>){
@@ -129,6 +130,13 @@ export class MovieOutput {
     this.currentDisplayedMovies = this.favoritMovies;
   }
 
+  @Method()
+  async showSearch(){
+    this.watchlisDisplayed = false;
+    this.favoritDisplayed = false;
+    this.detailDisplayed = false;
+  }
+
 
   //InitalLoad
   async componentWillLoad(){
@@ -140,7 +148,7 @@ export class MovieOutput {
     return(
       this.detailDisplayed
       ?
-      <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path}></movie-detail>
+      <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path} app-language={this.language}></movie-detail>
       :
       (this.currentDisplayedMovies.length > 0
         ? 
