@@ -18,13 +18,7 @@ export namespace Components {
         "movieLength": number;
         "movieTitle": string;
     }
-    interface MovieDetailActor {
-        "personImg": string;
-        "personName": string;
-    }
-    interface MovieDetailSimilarmovie {
-        "imagePosterUrl": string;
-        "movieTitle": string;
+    interface MovieFooter {
     }
     interface MovieHeader {
         "headerBGImage": string;
@@ -57,17 +51,11 @@ declare global {
         prototype: HTMLMovieDetailElement;
         new (): HTMLMovieDetailElement;
     };
-    interface HTMLMovieDetailActorElement extends Components.MovieDetailActor, HTMLStencilElement {
+    interface HTMLMovieFooterElement extends Components.MovieFooter, HTMLStencilElement {
     }
-    var HTMLMovieDetailActorElement: {
-        prototype: HTMLMovieDetailActorElement;
-        new (): HTMLMovieDetailActorElement;
-    };
-    interface HTMLMovieDetailSimilarmovieElement extends Components.MovieDetailSimilarmovie, HTMLStencilElement {
-    }
-    var HTMLMovieDetailSimilarmovieElement: {
-        prototype: HTMLMovieDetailSimilarmovieElement;
-        new (): HTMLMovieDetailSimilarmovieElement;
+    var HTMLMovieFooterElement: {
+        prototype: HTMLMovieFooterElement;
+        new (): HTMLMovieFooterElement;
     };
     interface HTMLMovieHeaderElement extends Components.MovieHeader, HTMLStencilElement {
     }
@@ -95,8 +83,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "movie-detail": HTMLMovieDetailElement;
-        "movie-detail-actor": HTMLMovieDetailActorElement;
-        "movie-detail-similarmovie": HTMLMovieDetailSimilarmovieElement;
+        "movie-footer": HTMLMovieFooterElement;
         "movie-header": HTMLMovieHeaderElement;
         "movie-icon": HTMLMovieIconElement;
         "movie-output": HTMLMovieOutputElement;
@@ -116,13 +103,7 @@ declare namespace LocalJSX {
         "movieTitle"?: string;
         "onCloseDetail"?: (event: CustomEvent<any>) => void;
     }
-    interface MovieDetailActor {
-        "personImg"?: string;
-        "personName"?: string;
-    }
-    interface MovieDetailSimilarmovie {
-        "imagePosterUrl"?: string;
-        "movieTitle"?: string;
+    interface MovieFooter {
     }
     interface MovieHeader {
         "headerBGImage"?: string;
@@ -150,8 +131,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "movie-detail": MovieDetail;
-        "movie-detail-actor": MovieDetailActor;
-        "movie-detail-similarmovie": MovieDetailSimilarmovie;
+        "movie-footer": MovieFooter;
         "movie-header": MovieHeader;
         "movie-icon": MovieIcon;
         "movie-output": MovieOutput;
@@ -163,8 +143,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "movie-detail": LocalJSX.MovieDetail & JSXBase.HTMLAttributes<HTMLMovieDetailElement>;
-            "movie-detail-actor": LocalJSX.MovieDetailActor & JSXBase.HTMLAttributes<HTMLMovieDetailActorElement>;
-            "movie-detail-similarmovie": LocalJSX.MovieDetailSimilarmovie & JSXBase.HTMLAttributes<HTMLMovieDetailSimilarmovieElement>;
+            "movie-footer": LocalJSX.MovieFooter & JSXBase.HTMLAttributes<HTMLMovieFooterElement>;
             "movie-header": LocalJSX.MovieHeader & JSXBase.HTMLAttributes<HTMLMovieHeaderElement>;
             "movie-icon": LocalJSX.MovieIcon & JSXBase.HTMLAttributes<HTMLMovieIconElement>;
             "movie-output": LocalJSX.MovieOutput & JSXBase.HTMLAttributes<HTMLMovieOutputElement>;
