@@ -1,0 +1,14 @@
+@import "../../global/global.scss";
+
+footer{
+    img{
+        max-width: 8rem;
+    
+    }
+    color: $secondary;
+    border-top: 5px solid $secondary;
+    font-family: $mainFont;
+    h5{
+        font-weight: bold;
+    }
+}
