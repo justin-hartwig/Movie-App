@@ -42,9 +42,18 @@ export namespace Components {
         "baseURL": string;
         "imageBackdropUrl": string;
         "imagePosterUrl": string;
+        /**
+          * Displayes favorits with states, hides all other lists.
+         */
         "showFavorit": () => Promise<void>;
+        /**
+          * Displayes new movies with states, hides all other lists.
+         */
         "showNewMovielist": () => Promise<void>;
         "showSearch": (querry: string) => Promise<void>;
+        /**
+          * Displayes watchlist with states, hides all other lists.
+         */
         "showWatchlist": () => Promise<void>;
     }
     interface MoviePreview {

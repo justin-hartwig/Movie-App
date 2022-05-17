@@ -8,11 +8,11 @@ import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 export class MovieDetail {
   @Prop() movieId: string;
-  @Prop() movieTitle: string;
-  @Prop() movieDescription: string;
-  @Prop() movieLength: number;
-  @Prop() imagePosterUrl: string;
-  @Prop() imageBackdropUrl: string;
+  @Prop() movieTitle: string = "Keine Angabe";
+  @Prop() movieDescription: string = "Keine Angabe";
+  @Prop() movieLength: number = 0;
+  @Prop() imagePosterUrl: string = "Keine Angabe";
+  @Prop() imageBackdropUrl: string = "Keine Angabe";
   @Prop() apiKey: string;
   @Prop() baseUrl: string;
   @Prop() appLanguage: string;
@@ -20,11 +20,11 @@ export class MovieDetail {
   youTubeBaseUrl: string = "https://www.youtube.com/embed/";
 
   movieRuntinme: number;
-  movieGenres: string = "";
-  movieCastNames: string = "";
+  movieGenres: string = "Keine Angabe";
+  movieCastNames: string = "Keine Angabe";
   movieCast: any;
-  movieTrailerUrl: string = "";
-  movieDirection: string = "";
+  movieTrailerUrl: string = "Keine Angabe";
+  movieDirection: string = "Keine Angabe";
   similarMovies: any;
 
 
@@ -54,10 +54,13 @@ export class MovieDetail {
     let responseSimilarMovies = await fetch(similarMoviesUrl).then(response => response.json());
     let responseDirection = this.filterDirection(responseCredits.crew);
 
+
     //Format and store result
     this.movieRuntinme = responseData.runtime;
     this.movieGenres = this.stringifyApiData(responseData, "genres", 5);
-    this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
+    if(responseVideo.results.length > 0){
+      this.movieTrailerUrl = this.youTubeBaseUrl + responseVideo.results[0].key;
+    }
     this.movieCastNames = this.stringifyApiData(responseCredits, "cast", 3);
     this.movieDirection = this.stringifyDirectorData(responseDirection);
     this.movieCast = responseCredits.cast.slice(0, 6);
@@ -75,6 +78,9 @@ export class MovieDetail {
   stringifyApiData(data: any, key: string, length: number): string {
     let result: string = "";
     let index = 0;
+    if(key === ""){
+      return "keine Daten";
+    }
     for (let subCategory of data[key]) {
       index++;
       result += subCategory.name;
@@ -125,6 +131,12 @@ export class MovieDetail {
     return this.fetchAdditionalContent();
   }
 
+  displayTrailer(){
+    if(!(this.movieTrailerUrl === "Keine Angabe")){
+      return <iframe width="100%" height="220" class="trailer" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    }
+  }
+
   render() {
     return (
         <div class="container my-5 px-5 containerMovieDetail">
@@ -143,7 +155,7 @@ export class MovieDetail {
               <div class="col-12 col-lg-4">
                 Trailer
                 <div class="my-5">
-                  <iframe width="100%" height="220" class="trailer" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                  {this.displayTrailer()}
                 </div>
               </div>
               <div class="col-12 col-lg-4">

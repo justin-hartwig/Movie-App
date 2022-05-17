@@ -28,6 +28,12 @@ export class MovieOutput {
   @State() detailDisplayed: boolean = false;
 
   @Listen('addToWatchlist')
+  /** 
+   * Listens to the add watchlist icon click event. 
+   * Adds the clicked movie to the watchlist.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   addToWatchlistHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToAdd : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
@@ -37,6 +43,13 @@ export class MovieOutput {
   }
 
   @Listen('removeFromWatchlist')
+  /** 
+   * Listens to the remove watchlist icon click event. 
+   * Removes the clicked movie from the watchlist.
+   * Rerenders the list if the watchlist is displayed.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   removeFromWatchlistHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToRemove : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
@@ -49,6 +62,12 @@ export class MovieOutput {
   }
 
   @Listen('addToFavorit')
+  /** 
+   * Listens to the add favorit icon click event. 
+   * Adds the clicked movie to the favorits.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   addToFavoritestHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToAdd : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
@@ -58,6 +77,13 @@ export class MovieOutput {
   }
 
   @Listen('removeFromFavorit')
+  /** 
+   * Listens to the remove favorit icon click event. 
+   * Removes the clicked movie from the favorits.
+   * Rerenders the list if the favorits are displayed.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   removeFromFavoritesHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     const movieToRemove : object = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
@@ -70,6 +96,13 @@ export class MovieOutput {
   }
 
   @Listen('showDetail')
+   /** 
+   * Listens to the show detail icon click event.
+   * Sets the movie that is displayed in detail.
+   * Uses State to display detail view.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   showDetailHandler(event: CustomEvent<MovieIcon>){
     const targetElement : HTMLElement = event.target as HTMLElement;
     this.currentDisplayedDetail = this.getMovieByTitle(targetElement.closest('movie-preview').movieTitle);
@@ -77,10 +110,22 @@ export class MovieOutput {
   }
 
   @Listen('closeDetail')
+  /** 
+   * Listens to the show detail icon click event.
+   * Uses State to hide detail view.
+   * 
+   * @param {CustomEvent<MovieIcon>} event The listend event.
+  */
   closeDetailHandler(){
     this.detailDisplayed = false;
   }
 
+  /** 
+   * Seraches the displayed movies for the name. And returns the corresponding movie object.
+   * 
+   * @param {string} title The searched movie name.
+   * @returns {object}  The found movie object.
+  */
   getMovieByTitle(title : string) : object {
     let foundMovie : object;
     this.currentDisplayedMovies.filter(movie => {
@@ -91,7 +136,12 @@ export class MovieOutput {
     return foundMovie;
   }
 
-  //Get movies and save them in movies array
+   /** 
+   * Fetches currently relevant movies from the movie db api.
+   * 
+   * @param {string} url The movie db url.
+   * @returns The fetched results for the movies.
+  */
   async fetchNewMovies(url:string) {
     return fetch(url)
     .then((response) => response.json())
@@ -100,6 +150,13 @@ export class MovieOutput {
     });
   }
 
+  /** 
+   * Searches if a movie is in a movie list.
+   * 
+   * @param movie The searched movie object.
+   * @param {any[]} movie The list with is searched.
+   * @returns {boolean} The result of the search.
+  */
   checkIfMovieInList(movie, list :any[]) : boolean {
     let result : boolean = false;
     list.filter(entry => {
@@ -110,6 +167,9 @@ export class MovieOutput {
     return result;
   }
 
+  /** 
+   * Displayes watchlist with states, hides all other lists.
+  */
   @Method()
   async showWatchlist(){
     this.watchlisDisplayed = true;
@@ -118,6 +178,9 @@ export class MovieOutput {
     this.currentDisplayedMovies = this.watchlistMovies;
   }
 
+  /** 
+   * Displayes new movies with states, hides all other lists.
+  */
   @Method()
   async showNewMovielist(){
     this.watchlisDisplayed = false;
@@ -127,6 +190,9 @@ export class MovieOutput {
     this.currentDisplayedMovies = this.newMovies;
   }
 
+  /** 
+   * Displayes favorits with states, hides all other lists.
+  */
   @Method()
   async showFavorit(){
     this.watchlisDisplayed = false;
@@ -137,6 +203,11 @@ export class MovieOutput {
   }
 
   @Method()
+  /** 
+   * Triggers the fetch for a searched querry and displays them.
+   * 
+   * @param {string} querry The querry which is searched.
+  */
   async showSearch(querry : string){
     if(querry === "") {
       this.showNewMovielist();
@@ -151,24 +222,39 @@ export class MovieOutput {
     }
   }
 
+  /** 
+   * Fetches the results of a search ans stores them.
+   * 
+   * @param {string} querry The querry which is searched.
+  */
   async fetchSearchedMovies(querry : string) {
     let searchMovieUrl = this.searchUrl + this.apiKey + this.language + "&query=" + querry + "&page=1&include_adult=false";
     let responseSearch = await fetch(searchMovieUrl).then(response => response.json());
     this.searchedMovies = responseSearch.results;
   }
 
-  //InitalLoad
+  //Fetch data on load, display new movies.
   async componentWillLoad(){
     this.newMovies = await this.fetchNewMovies(this.apiURL);
     this.showNewMovielist();
   }
 
+  /** 
+   * Checks if the detail view is activ and generates the detail component.
+   * 
+   * @return The movie detailcomponent.
+  */
   displayDetail(){
     if(this.detailDisplayed){
        return <movie-detail base-url={this.baseURL} api-key={this.apiKey} movie-id={this.currentDisplayedDetail.id} movie-title={this.currentDisplayedDetail.title} movie-description={this.currentDisplayedDetail.overview} image-backdrop-url={this.imageBackdropUrl + this.currentDisplayedDetail.backdrop_path} image-poster-url={this.imagePosterUrl} app-language={this.language}></movie-detail>;
     } else return null;
   }
 
+  /** 
+   * Maps all movies in the current activ list and generates a preview component for each one.
+   * 
+   * @return All preview elements in the current activ list. Or a default message.
+  */
   displayCurrentMovies(){
     let domElements = [];
     if(this.currentDisplayedMovies.length > 0){
@@ -181,6 +267,11 @@ export class MovieOutput {
     return domElements;
   }
 
+  /** 
+   * Returns a heading depending on the current view.
+   * 
+   * @return The heading with fitting text.
+  */
   displayListTitle(){
     if(this.watchlisDisplayed) {
       return <h2 class="list-title">Watchlist</h2>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, h, Prop, Event, State } from '@stencil/core';
+import { Component, EventEmitter, h, Prop, Event } from '@stencil/core';
 
 /** 
  * Data structure for icon categories.
@@ -21,7 +21,7 @@ export interface iconCategorie {
 })
 
 export class MovieIcon {
-  @Prop() baseIconPath : string = "/assets/images/icons/"
+  @Prop() baseIconPath : string = "/assets/images/icons/";
   //Initilization of the icon categories
   @Prop() iconCategories : iconCategorie[] = [{name: "watchlist-add", fileName:"watchlist.svg", altAttribute: "Zur Watchlist hinzufügen", onClickFunction: this.onWatchlistAddButtonClicked.bind(this)}, 
                             {name: "watchlist-remove", fileName:"removefromwatchlist.svg", altAttribute: "Von der Watchlist entfernen", onClickFunction: this.onWatchlistRemoveButtonClicked.bind(this)},
@@ -36,33 +36,25 @@ export class MovieIcon {
   @Event({bubbles:true, composed:true}) removeFromFavorit: EventEmitter<MovieIcon>;
   @Event({bubbles:true, composed:true}) showDetail: EventEmitter<MovieIcon>;
 
-  //Current icon state to trigger rerendering if icon is clicked.
-  @State() onWatchlist: boolean = false;
-  @State() onFavorit: boolean = false;
-
   /** 
-   * Emits event on whatchlist button pressed to trigger rerendering and the coressponding listener in movie-output.
+   * Emits event on whatchlist button pressed to trigger rerendering and the coressponding listener in movie-output and movie-preview.
   */
   onWatchlistAddButtonClicked(){
-    this.onWatchlist = true;
     this.addToWatchlist.emit(this);
   }
 
   onWatchlistRemoveButtonClicked(){
-    this.onWatchlist = false;
     this.removeFromWatchlist.emit(this);
   }
 
   /** 
-   * Emits event on favorit button pressed to trigger rerendering and the coressponding listener in movie-output.
+   * Emits event on favorit button pressed to trigger rerendering and the coressponding listener in movie-output and movie-preview.
   */
   onFavoritAddButtonClicked(){
-    this.onFavorit = true;
     this.addToFavorit.emit(this);
   }
 
   onFavoritRemoveButtonClicked(){
-    this.onFavorit = false;
     this.removeFromFavorit.emit(this);
   }
 
@@ -91,36 +83,32 @@ export class MovieIcon {
 
   render() {
     //Watchlist icon
-    if(this.iconName === "watchlist") {
-      if(this.onWatchlist){
-        return(
-          <button onClick={this.iconCategorieByName("watchlist-remove").onClickFunction} class="btn button-icon">
-            <img src={this.baseIconPath + this.iconCategorieByName("watchlist-remove").fileName} alt={this.iconCategorieByName("watchlist-remove").altAttribute}></img>
-          </button>
-        )
-      } else {
-        return(
-          <button onClick={this.iconCategorieByName("watchlist-add").onClickFunction} class="btn button-icon">
-            <img src={this.baseIconPath + this.iconCategorieByName("watchlist-add").fileName} alt={this.iconCategorieByName("watchlist-add").altAttribute}></img>
-          </button>
-        )
-      }
-    } 
+    if(this.iconName === "watchlist-remove"){
+      return(
+        <button onClick={this.iconCategorieByName("watchlist-remove").onClickFunction} class="btn button-icon">
+          <img src={this.baseIconPath + this.iconCategorieByName("watchlist-remove").fileName} alt={this.iconCategorieByName("watchlist-remove").altAttribute}></img>
+        </button>
+      )
+    } else if(this.iconName === "watchlist-add") {
+      return(
+        <button onClick={this.iconCategorieByName("watchlist-add").onClickFunction} class="btn button-icon">
+          <img src={this.baseIconPath + this.iconCategorieByName("watchlist-add").fileName} alt={this.iconCategorieByName("watchlist-add").altAttribute}></img>
+        </button>
+      )
+    }
     //Favorit icon
-    else if(this.iconName === "favorit") {
-      if(this.onFavorit){
-        return(
-          <button onClick={this.iconCategorieByName("favorit-remove").onClickFunction} class="btn button-icon">
-            <img src={this.baseIconPath + this.iconCategorieByName("favorit-remove").fileName} alt={this.iconCategorieByName("favorit-remove").altAttribute}></img>
-          </button>
-        )
-      } else {
-        return(
-          <button onClick={this.iconCategorieByName("favorit-add").onClickFunction} class="btn button-icon">
-            <img src={this.baseIconPath + this.iconCategorieByName("favorit-add").fileName} alt={this.iconCategorieByName("favorit-add").altAttribute}></img>
-          </button>
-        )
-      }
+    else if(this.iconName === "favorit-remove") {
+      return(
+        <button onClick={this.iconCategorieByName("favorit-remove").onClickFunction} class="btn button-icon">
+          <img src={this.baseIconPath + this.iconCategorieByName("favorit-remove").fileName} alt={this.iconCategorieByName("favorit-remove").altAttribute}></img>
+        </button>
+      )
+    } else if(this.iconName === "favorit-add"){
+      return(
+        <button onClick={this.iconCategorieByName("favorit-add").onClickFunction} class="btn button-icon">
+          <img src={this.baseIconPath + this.iconCategorieByName("favorit-add").fileName} alt={this.iconCategorieByName("favorit-add").altAttribute}></img>
+        </button>
+      )
     }
     //Other icon
     else {
