@@ -27,7 +27,7 @@ export class MovieIcon {
                             {name: "watchlist-remove", fileName:"removefromwatchlist.svg", altAttribute: "Von der Watchlist entfernen", onClickFunction: this.onWatchlistRemoveButtonClicked.bind(this)},
                             {name: "favorit-add", fileName:"favourite.svg", altAttribute: "Zu den Favoriten hinzufügen", onClickFunction: this.onFavoritAddButtonClicked.bind(this)},
                             {name: "favorit-remove", fileName:"removefavourite.svg", altAttribute: "Von den Favoriten entfernen", onClickFunction: this.onFavoritRemoveButtonClicked.bind(this)},
-                            {name: "detail", fileName:"arrowdowncircle.svg", altAttribute: "Details", onClickFunction: this.onShowDetailClicked.bind(this)}];
+                            {name: "detail", fileName:"search.svg", altAttribute: "Details", onClickFunction: this.onShowDetailClicked.bind(this)}];
   @Prop() iconName : string;
 
   @Event({bubbles:true, composed:true}) addToWatchlist: EventEmitter<MovieIcon>;

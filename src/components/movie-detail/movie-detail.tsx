@@ -131,6 +131,11 @@ export class MovieDetail {
     return this.fetchAdditionalContent();
   }
 
+  /** 
+   * Returns a Youtube IFrame with the movie URL if it is set.
+   * 
+   * @return The Youtube IFrame.
+  */
   displayTrailer(){
     if(!(this.movieTrailerUrl === "Keine Angabe")){
       return <iframe width="100%" height="220" class="trailer" src={this.movieTrailerUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
